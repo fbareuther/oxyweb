@@ -1,0 +1,33 @@
+---
+unformatted: true
+---
+{{#extend "content-view"}}
+	{{#content "head"}}
+		<style data-codebox-preview="css" type="text/css">\{{{css}}}</style>
+		<script>
+			window.addEventListener('message', function (event) { // FIXME: IE8 not compatible!
+				// Verify the origin of the message's sender:
+				if (event.origin !== (window.location.protocol + "//" + window.location.host)) {
+					return;
+				}
+				var result = '';
+				try {
+					result = eval(event.data) || 'n/a';
+				} catch (e) {
+					result = 'eval() exception: ' + e.message;
+				}
+
+				// Post result back to source:
+				event.source.postMessage(result.toString(), event.origin);
+			});
+		</script>
+	{{/content}}
+	{{#content "content"}}
+		\{{{html}}}
+		<script data-codebox-preview="javascript" type="text/javascript">
+			$(function(){
+				\{{{javascript}}}
+			});
+		</script>
+	{{/content}}
+{{/extend}}

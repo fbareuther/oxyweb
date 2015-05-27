@@ -1,0 +1,64 @@
+@import "mixins";
+
+//
+// Forms
+// ------------------------------------------------
+
+fieldset + fieldset {
+	margin-top: @line-height-computed;
+}
+
+legend {
+	border-style: dotted;
+	font-size: 12px;
+	font-weight: 600;
+	margin-bottom: @line-height-computed / 2;
+}
+
+.form-actions {
+	text-align: right;
+
+	.pull-right {
+		margin-left: 4px;
+	}
+
+	.dropdown-menu {
+		text-align: left;
+	}
+
+	.dropdown-toggle {
+		.toggle-down(@layer: after);
+	}
+
+	.form-inline & {
+		float: right !important;
+	}
+}
+
+.help-block {
+	font-size: 12px;
+}
+
+.input-group .has-feedback .form-control-feedback {
+	z-index: 5;
+	top: 0;
+	font-size: 1.5em;
+}
+
+.form-control-static {
+	> .fa,
+	> .glyphicon {
+		color: @brand-default;
+		font-size: @font-size-large+2;
+		padding: 7px 0;
+
+		&:hover {
+			color: inherit;
+		}
+	}
+
+	a&:hover,
+	> a:hover {
+		text-decoration: none;
+	}
+}

@@ -1,0 +1,37 @@
+---
+layout: default.hbs
+ui-layout: two-column
+headline: false
+columns: 2
+---
+<div class="column-layout column-layout-{{columns}} row"{{!-- data-provides="column-layout"--}}>
+	<div class="column-left hidden-print" data-column="left" role="complementary">
+		{{!-- <div class="sidebar">--}}
+			{{!-- Delegates to custom implementation --}}
+			{{> sidebar-left}}
+		{{!-- </div>--}}
+	</div>
+	<div class="column-main">
+		{{!-- <button type="button" class="toggle-left" data-column-toggle="left">
+			<span class="sr-only">Toggle left column</span>
+		</button>--}}
+		{{#if description}}
+			{{> headline}}
+		{{/if}}
+		{{> body }}
+		{{#is columns 3}}
+		{{!-- <button type="button" class="toggle-right" data-column-toggle="right">
+			<span class="sr-only">Toggle right column</span>
+		</button>--}}
+		{{/is}}
+	</div>
+	{{#is columns 3}}
+		<div class="column-right" data-column="right" role="complementary">
+			{{!-- <div class="sidebar">--}}
+				{{!-- Delegates to custom implementation --}}
+				{{> sidebar-right}}
+			{{!-- </div>--}}
+		</div>
+	{{/is}}
+	<div class="clearfix"></div>
+</div>

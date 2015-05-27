@@ -1,0 +1,30 @@
+{{#extend "default-view"}}
+	{{#content "content-layout"}}three-column{{/content}}
+	{{#block "title"}}Three-Column Layout{{/block}}
+	{{#content "default"}}
+		<div class="column-layout column-layout-3 row">
+			<div class="column-left hidden-print" data-column="left" role="complementary">
+				{{#block "left"}}
+					{{#context text="left"}}
+						{{> placeholder}}
+					{{/context}}
+				{{/block}}
+			</div>
+			<div class="column-main">
+				{{#block "main"}}
+					{{#context text="main"}}
+						{{> placeholder}}
+					{{/context}}
+				{{/block}}
+			</div>
+			<div class="column-right" data-column="right" role="complementary">
+				{{#block "right"}}
+					{{#context text="right"}}
+						{{> placeholder}}
+					{{/context}}
+				{{/block}}
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	{{/content}}
+{{/extend}}

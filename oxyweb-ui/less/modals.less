@@ -1,0 +1,24 @@
+@import "variables";
+@import "mixins";
+
+//
+// Modals extensions
+// --------------------------------------------------
+
+// Modal sidebar
+// --------------------------------------------------
+.modal .modal-content {
+	> .modal-sidebar {
+		.make-sm-column(5);
+		padding: @modal-inner-padding;
+		border-right: 1px solid @modal-header-border-color;
+
+		+ .modal-body {
+			.make-sm-column(7);
+
+			+ .modal-footer {
+				clear: both;
+			}
+		}
+	}
+}

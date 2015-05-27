@@ -1,0 +1,28 @@
+<header id="header" data-spy="affix" data-offset-top="{{obliqueui.offsets.final}}" data-offset-bottom="0">
+	{{> access-keys }}
+
+	<div class="navbar">
+		<div class="navbar-header">
+			<!-- Branding -->
+			<a class="navbar-brand" href="{{assets}}{{obliqueui.site.home}}">
+				<span class="logo">
+					<img src="{{assets}}{{obliqueui.vendor}}images/logo.png" alt="Logo of the Swiss Confederation" />
+				</span>
+				<span class="app-title" data-version="{{package.version}}">{{package.title}}</span>
+			</a>
+			<ul class="nav navbar-nav navbar-toggle navbar-controls">
+				<li>
+					<a role="button" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="fa fa-bars fa-lg"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-collapse collapse">
+			{{!-- Delegates to custom implementation --}}
+			{{> nav-header}}
+		</div>
+	</div>
+	{{> nav-main }}
+</header>

@@ -1,0 +1,41 @@
+{{~#prettify}}
+<ul class="nav navbar-nav navbar-primary navbar-fw" role="menu">
+	<li role="menuitem">
+		<a href="#docs-example-navs-navbars-primary-section1">Section 1</a>
+	</li>
+	<li class="dropdown" role="menuitem">
+		<a id="docs-example-navs-navbars-primary-section2" role="button" data-toggle="dropdown">
+			<span>Section 2</span>
+			<span class="toggle"></span>
+		</a>
+		<div class="dropdown-menu">
+			<ul id="docs-example-navs-navbars-primary-section2-menu" class="nav nav-stacked" role="menu" data-provides="activable">
+				<li class="nav-header" role="presentation">
+					<h3>Section 2 Header</h3>
+				</li>
+				<li role="menuitem" class="nav-section">
+					<a id="docs-example-navs-navbars-primary-section2-1">Section 2.1</a>
+					{{#extend "dropdown-menu"}}
+						{{#content "id"}}docs-example-navs-navbars-primary-section2-1{{/content}}
+						{{#content "nav"}}nav nav-stacked{{/content}}
+						{{#content "header-top"}}{{/content}}
+						{{#content "header-bottom"}}{{/content}}
+					{{/extend}}
+				</li>
+				<li role="menuitem" class="nav-section">
+					<a id="docs-example-navs-navbars-primary-section2-2">Section 2.2</a>
+					{{#extend "dropdown-menu"}}
+						{{#content "id"}}docs-example-navs-navbars-primary-section2-2{{/content}}
+						{{#content "nav"}}nav nav-stacked{{/content}}
+						{{#content "header-top"}}{{/content}}
+						{{#content "header-bottom"}}{{/content}}
+					{{/extend}}
+				</li>
+			</ul>
+		</div>
+	</li>
+	<li role="menuitem">
+		<a href="#docs-example-navs-navbars-primary-section3">Section 3</a>
+	</li>
+</ul>
+{{/prettify~}}

@@ -1,0 +1,40 @@
+{{~#prettify}}
+	<div class="row">
+		<div class="col-md-4">
+			<label>Small Wizard</label>
+			{{#context wizardVariant="nav-wizard-sm"}}
+				{{> nav-wizard}}
+			{{/context}}
+		</div>
+		<div class="col-md-4">
+			<label>Medium / Default Wizard</label>
+			{{> nav-wizard}}
+		</div>
+		<div class="col-md-4">
+			<label>Large Wizard</label>
+			{{#context wizardVariant="nav-wizard-lg"}}
+				{{> nav-wizard}}
+			{{/context}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<label>Small Horizontal Wizard</label>
+			{{#context wizardVariant="nav-wizard-sm horizontal"}}
+				{{> nav-wizard}}
+			{{/context}}
+		</div>
+		<div class="col-xs-12">
+			<label>Medium / Default Horizontal Wizard</label>
+			{{#context wizardVariant="horizontal"}}
+				{{> nav-wizard}}
+			{{/context}}
+		</div>
+		<div class="col-xs-12">
+			<label>Large Horizontal Wizard</label>
+			{{#context wizardVariant="nav-wizard-lg horizontal"}}
+				{{> nav-wizard}}
+			{{/context}}
+		</div>
+	</div>
+{{/prettify~}}

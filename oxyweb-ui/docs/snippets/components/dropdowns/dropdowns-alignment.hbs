@@ -1,0 +1,27 @@
+{{~#prettify~}}
+<div class="row">
+	<div class="col-xs-6">
+		<div class="dropdown clearfix">
+			<button class="btn btn-default dropdown-toggle" type="button" id="docs-example-dropdowns-alignment-left" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span>Left-aligned dropdown</span>
+			</button>
+			{{#extend "dropdown-menu"}}
+				{{#content "id"}}docs-example-dropdowns-alignment-left{{/content}}
+			{{/extend}}
+		</div>
+	</div>
+	<div class="col-xs-6 text-right">
+		<div class="dropdown clearfix">
+			<button class="btn btn-default dropdown-toggle" type="button" id="docs-example-dropdowns-alignment-right" data-toggle="dropdown">
+				<span>Right-aligned dropdown</span>
+				<span class="caret"></span>
+			</button>
+			{{#extend "dropdown-menu"}}
+				{{#content "id"}}docs-example-dropdowns-alignment-right{{/content}}
+				{{#content "variant"}} dropdown-menu-right{{/content}}
+			{{/extend}}
+		</div>
+	</div>
+</div>
+{{/prettify~}}

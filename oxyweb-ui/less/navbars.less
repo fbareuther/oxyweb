@@ -1,0 +1,228 @@
+//
+// Navbars
+// ------------------------------------------------
+
+.navbar {
+	min-height: inherit;
+}
+
+.navbar-nav {
+	margin: 0;
+	padding: 0;
+	min-height: inherit;
+
+	&.navbar-toggle {
+		border: none;
+	}
+
+	> li.open > a {
+		z-index: @zindex-navbar + 1;
+	}
+}
+
+// Primary navigation
+// --------------------------------------------------
+.navbar-primary {
+	> li {
+
+		> a {
+			font-weight: normal;
+			right: 0;
+			font-size: 1em;
+			margin: 0;
+		}
+
+		&.active > a {
+			background: @navbar-default-link-active-bg;
+		}
+
+		> .dropdown-menu {
+			border: none;
+			padding: @padding-base-vertical;
+		}
+	}
+
+	@media (min-width: @grid-float-breakpoint) {
+		> li > .dropdown-menu {
+			padding: @padding-large-vertical;
+
+			li > a {
+				padding-top: @padding-base-vertical;
+				padding-bottom: @padding-base-vertical;
+			}
+		}
+	}
+}
+
+// Full-width navigation (float breakpoint only)
+// --------------------------------------------------
+// Inspired from, optimized for Bootstap 3.1.x:
+// http://geedmo.github.com/yamm3/
+.navbar-fw {
+	position: relative;
+	.make-row();
+	float: none;
+
+	// Reset positions:
+	&.nav > li, .collapse {
+		position: static;
+	}
+
+	// Fullwidth dropdown menu:
+	.dropdown-menu {
+		left: 0;
+		right: 0;
+
+		// Restore nav submenu styling:
+		ul {
+			list-style: none;
+
+			> li {
+				position: relative;
+				border: none;
+
+				&.nav-header {
+					padding-left: 15px;
+				}
+
+				&.nav-section {
+
+					.nav-section > ul {
+						margin-left: @padding-base-horizontal;
+
+						a:before {
+							content: '- ';
+						}
+					}
+				}
+			}
+		}
+
+		> ul > li:not(.nav-header) {
+			.make-sm-column(3);
+			margin-bottom: 20px;
+
+			&:nth-child(6) {
+				clear: left;
+			}
+
+			&.nav-section {
+				> a {
+					font-weight: 600;
+				}
+			}
+		}
+	}
+
+	// Restore right alignment:
+	&.nav.navbar-right .dropdown-menu {
+		left: auto;
+		right: 0;
+	}
+}
+
+// Controls navbar
+// ------------------------------------------------
+.navbar-controls > li {
+	> a {
+		.animatable(color);
+		color: @gray-dark;
+		line-height: 0.95;
+		margin: 6px 0;
+		padding: 14px;
+
+		@media (min-width: @grid-float-breakpoint) {
+			margin: 15px 0;
+		}
+
+		label {
+			margin: 0;
+			cursor: pointer;
+		}
+
+		&.slide-control {
+
+			.toggles {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			.slides {
+				.animatable();
+				display: inline-block;
+				width: 0;
+				overflow: hidden;
+				white-space: nowrap;
+				outline: none;
+				border: none;
+				font-size: @font-size-base;
+				line-height: @font-size-base + 8;
+				vertical-align: middle;
+			}
+
+			&.search-control {
+				&:before {
+					.content-generated();
+					.animatable(opacity);
+					opacity: 0;
+				}
+
+				.toggles {
+					.icon('search');
+					.animatable(margin-right);
+					margin-top: -4px; // Fine-tune position
+					margin-right: -11px; // Shift by input padding
+				}
+			}
+
+			&.top-control {
+				.toggles {
+					.icon('angle-up', @padding-right: 0);
+					font-size: 36px;
+					margin-top: -5px;
+				}
+			}
+		}
+	}
+
+	&.active > a,
+	> a.slide-auto:hover {
+		&.slide-control {
+
+			&:before {
+				opacity: 1;
+				top: 40px;
+				right: 10px;
+				bottom: 10px;
+				left: 50px;
+			}
+
+			.toggles {
+				z-index: 0;
+				margin-right: 0;
+			}
+
+			.slides {
+				width: 200px;
+				margin-left: 10px;
+			}
+
+			&.search-control {
+				&:before {
+					opacity: 1;
+					top: 40px;
+					right: 10px;
+					bottom: 10px;
+					left: 50px;
+					border-bottom: 1px solid @gray;
+					border-left: 1px solid @gray;
+					border-right: 1px solid @gray;
+				}
+			}
+
+			&.top-control .slides {
+				width: 85px;
+			}
+		}
+	}
+}

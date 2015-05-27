@@ -1,0 +1,11 @@
+<ol class="nav nav-wizard{{#if wizardVariant}} {{wizardVariant}}{{/if}}" role="menu">
+	<li role="menuitem">
+		<a role="button">{{#if wizardStepsOrdered}}Step 1{{else}}Default / Completed{{/if}}</a>
+	</li>
+	<li class="active" role="menuitem">
+		<a role="button">{{#if wizardStepsOrdered}}Step 2{{else}}Active{{/if}}</a>
+	</li>
+	<li class="disabled" role="menuitem">
+		<a role="button">{{#if wizardStepsOrdered}}Step 3{{else}}Disabled{{/if}}</a>
+	</li>
+</ol>

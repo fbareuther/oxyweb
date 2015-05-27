@@ -1,0 +1,40 @@
+---
+ui-layout: base
+has-transitions: true
+has-tooltips: true
+theme: default
+description: <%= package.description %>
+---
+{{~#prettify}}
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="lt-ie9" lang="en"><![endif]-->
+<!--[if gte IE 9]><!-->
+<html lang="en">
+<!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>{{#if title}}{{title}} &middot; {{/if}}{{package.title}}</title>
+		<meta name="description" content="{{description}}" />
+
+		{{> compatibility }}
+
+		<!-- Icons -->
+		<link rel="shortcut icon" href="{{assets}}{{obliqueui.vendor}}images/favicon.ico" />
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="{{assets}}{{obliqueui.vendor}}css/{{obliqueui.name}}.css" />
+		<link rel="stylesheet" href="{{assets}}{{obliqueui.vendor}}themes/{{theme}}/{{theme}}-theme.css" data-provides="theme" />
+
+		<!-- JavaScript -->
+		<script src="{{assets}}{{obliqueui.vendor}}js/{{obliqueui.name}}-all.js"></script>
+
+		{{!-- Delegates to custom implementation --}}
+		{{> head-resources}}
+	</head>
+	<body class="{{ui-layout}}-layout{{#if has-transitions}} has-transitions{{/if}}{{#if has-tooltips}} has-tooltips{{/if}}">
+		{{> body}}
+	</body>
+</html>
+{{/prettify~}}

@@ -1,0 +1,26 @@
+{{~#prettify~}}<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#docs-example-modal-wizard">Modal with wizard</button>
+
+<!-- Modal -->
+<div id="docs-example-modal-wizard" class="modal modal-wizard fade" tabindex="-1" style="display: none;"
+     role="dialog" aria-hidden="true" aria-labelledby="#docs-example-modal-wizard-label">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="docs-example-modal-wizard-label">Modal title</h4>
+				{{#context wizardVariant="nav-wizard-sm horizontal" wizardStepsOrdered=true}}{{> nav-wizard}}{{/context}}
+			</div>
+			<div class="modal-body">
+				<h4>Step 2</h4>
+				<p>{{lorem}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-default">Previous</button>
+				<button type="button" class="btn btn-primary">Next</button>
+			</div>
+		</div>
+	</div>
+</div>
+{{/prettify~}}

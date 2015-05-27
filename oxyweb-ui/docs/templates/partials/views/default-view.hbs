@@ -1,0 +1,57 @@
+{{#extend "content-view"}}
+	{{#content "layout"}}{{#block "content-layout"}}default{{/block}}{{/content}}
+	{{#block "title"}}Default Layout{{/block}}
+	{{#content "header"}}
+		<header id="header" data-spy="affix" data-offset-top="{{obliqueui.offsets.final}}" data-offset-bottom="0">
+			{{> access-keys }}
+			<div class="navbar">
+				<div class="navbar-header">
+					<!-- Branding -->
+					<a class="navbar-brand" href="{{obliqueui.site.home}}">
+						<span class="logo">
+							<img src="{{assets}}{{obliqueui.vendor}}images/logo.png" alt="Logo of the Swiss Confederation" />
+						</span>
+						<span class="app-title" data-version="{{package.version}}">{{#block "app-title"}}{{package.title}} Sample{{/block}}</span>
+					</a>
+					<ul class="nav navbar-nav navbar-toggle navbar-controls">
+						<li>
+							<a role="button" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="fa fa-bars fa-lg"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="navbar-collapse collapse">
+					{{#block "header-navbar"}}
+						<div class="placeholder-only pull-right">
+							{{#context size="200x84" text="header-navbar"}}
+								{{> placeholder}}
+							{{/context}}
+						</div>
+					{{/block}}
+				</div>
+			</div>
+			<div id="navigation">
+				<div class="navbar-collapse collapse">
+					<h2 class="sr-only">Global navigation</h2>
+					{{#block "navigation"}}
+						{{> navbars-primary}}
+					{{/block}}
+				</div>
+			</div>
+		</header>
+	{{/content}}
+	{{#content "content"}}
+		{{#block "default"}}
+			{{> placeholder}}
+		{{/block}}
+	{{/content}}
+	{{#content "footer"}}
+		<footer id="footer">
+			{{#context size="100%x50" text="footer"}}
+				{{> placeholder}}
+			{{/context}}
+		</footer>
+	{{/content}}
+{{/extend}}

@@ -1,0 +1,53 @@
+<ul class="nav nav-tree" data-provides="activable">
+	<li class="nav-header" role="presentation">
+		<h3>Navigation header</h3>
+	</li>
+	<li class="open">
+		<a href="#nav-tree-level-1" data-toggle="collapse">Level 1</a>
+		<ul id="nav-tree-level-1" class="nav collapse in" data-provides="activable" data-parent=".nav.nav-tree">
+			<li>
+				<a href="#nav-tree-level-1-1">Level 1.1</a>
+			</li>
+			<li class="open">
+				<a href="#nav-tree-level-1-2" data-toggle="collapse">Level 1.2</a>
+				<ul id="nav-tree-level-1-2" class="nav collapse in" data-provides="activable" data-parent=".nav.nav-tree">
+					<li><a href="#nav-tree-level-1-2-1">Level 1.2.1</a></li>
+					<li class="open">
+						<a href="#nav-tree-level-1-2-2" data-toggle="collapse">Level 1.2.2</a>
+						<ul id="nav-tree-level-1-2-2" class="nav collapse in" data-provides="activable"  data-parent=".nav.nav-tree">
+							<li><a href="#nav-tree-level-1-2-2-1">Level 1.2.2.1</a></li>
+							<li><a href="#nav-tree-level-1-2-2-2">Level 1.2.2.2</a></li>
+							<li class="active"><a href="#nav-tree-level-1-2-2-3">Level 1.2.2.3</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li><a href="#nav-tree-level-1-3">Level 1.3</a></li>
+			<li>
+				<a href="#nav-tree-level-1-4" data-toggle="collapse">Level 1.4</a>
+				<ul id="nav-tree-level-1-4" class="nav collapse" data-provides="activable" data-parent=".nav.nav-tree">
+					<li><a href="#nav-tree-level-1-1">Level 1.4.1</a></li>
+					<li><a href="#nav-tree-level-1-2">Level 1.4.2</a></li>
+					<li><a href="#nav-tree-level-1-3">Level 1.4.3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<a href="#nav-tree-level-2" data-toggle="collapse">
+			<span>Level 2</span>
+			<span class="badge">9999</span>
+		</a>
+		<ul id="nav-tree-level-2" class="nav collapse" data-provides="activable" data-parent=".nav.nav-tree">
+			<li><a href="#nav-tree-level-2-1">Level 2.1</a></li>
+			<li>
+				<a href="#nav-tree-level-2-2" data-toggle="collapse">Level 2.2</a>
+				<ul id="nav-tree-level-2-2" class="nav collapse" data-provides="activable" data-parent=".nav.nav-tree">
+					<li><a href="#nav-tree-level-2-2-1">Level 2.2.1</a></li>
+					<li><a href="#nav-tree-level-2-2-2">Level 2.2.2</a></li>
+					<li><a href="#nav-tree-level-2-2-3">Level 2.2.3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>

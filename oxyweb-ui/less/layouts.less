@@ -1,0 +1,410 @@
+@import "variables";
+@import "mixins";
+
+//
+// Base Layout
+// --------------------------------------------------
+
+#wrapper,
+#footer {
+	.container-fluid;
+}
+
+#header,
+#footer {
+	z-index: 2;
+}
+
+#wrapper {
+	position: relative;
+	clear: both;
+	background: @body-bg;
+	padding-bottom: @padding-large-vertical * 2;
+}
+
+#header {
+	position: relative;
+
+	> .navbar {
+		border: none;
+		.border-radius(0);
+		margin: 0;
+		border-bottom: 5px solid @brand-legacy-primary;
+
+		.navbar-brand {
+			padding: 0;
+			height: auto;
+			color: @brand-default;
+
+			.logo, .app-title {
+				display: inline-block;
+				vertical-align: top;
+				margin: 14px;
+			}
+
+			.logo {
+				float: left; // IE7+ fix
+				overflow: hidden;
+				width: 30px;
+				height: 40px;
+				margin-right: 4px;
+
+				@media (min-width: @grid-float-breakpoint) {
+					width: 246px;
+					height: 54px;
+				}
+			}
+
+			.app-title{
+				text-indent: @padding-base-horizontal;
+				padding: 0 @padding-small-horizontal;
+				border-left: 1px solid @gray-lighter;
+			}
+		}
+
+		@media (max-width: @grid-float-breakpoint-max) {
+			.navbar-controls {
+				float: right;
+
+				> li {
+					float: left;
+				}
+			}
+		}
+	}
+
+	@media (min-width: @grid-float-breakpoint) {
+		.navbar-primary {
+			padding-left: 56px;
+		}
+	}
+}
+
+#content {
+	> *:not(.headline) {
+		margin-top: @padding-large-vertical;
+	}
+}
+
+
+#footer {
+	color: @gray-darker;
+	background-color: @white;
+	.box-shadow(0 -4px 6px -2px rgba(0, 0, 0, 0.1));
+	font-size: @font-size-small;
+	line-height: 1.5em;
+
+	margin-top: @padding-large-vertical;
+	padding-top: @padding-large-vertical;
+
+	border-top: 1px solid @gray;
+
+	p {
+		margin-bottom: @padding-base-vertical;
+	}
+
+	@media (min-width: @grid-float-breakpoint) {
+		ul {
+			.pull-right();
+			.list-inline();
+
+			a {
+				margin-left: @padding-large-vertical;
+			}
+		}
+	}
+}
+
+//
+// Experimental 100% height viewport & Sticky footer
+//
+// Inspired from:
+// http://css-tricks.com/snippets/css/sticky-footer/
+// http://stackoverflow.com/questions/19756997/how-to-create-a-sticky-footer-that-plays-well-with-bootstrap-3
+// http://plnkr.co/edit/4OH2ZL?p=preview
+//
+html,
+body {
+	// The html and body elements cannot have any padding or margin:
+	height: 100%;
+}
+
+#wrapper {
+	// Wrapper for page content to push down footer:
+	min-height: 100%;
+
+	// Negative indent footer by its height:
+	margin-bottom: -90px;
+
+	&:after {
+		content: "";
+		display: block;
+	}
+}
+
+#footer {
+	position: relative;
+	width: 100%;
+
+	// Simulate padding without triggering unwanted scrollbars:
+	margin-top: 0;
+	padding-top: 0;
+	&:before {
+		content: "";
+		display: block;
+		height: 10px;
+	}
+}
+
+#footer, #wrapper:after {
+	// Set the fixed height of the footer minus paddings:
+	height: 90px;
+}
+
+//
+// Column layout (common styles)
+// --------------------------------------------------
+.column-layout {
+
+	// Two-column layout:
+	&.column-layout-2 {
+		.column-left {
+			.make-sm-column(3);
+		}
+
+		.column-main {
+			.make-sm-column(9);
+		}
+	}
+
+	// Three-column layout:
+	&.column-layout-3 {
+
+		.column-left,
+		.column-right {
+			.make-sm-column(3);
+		}
+
+		.column-main {
+			.make-sm-column(6);
+		}
+	}
+
+	// Responsive handling:
+	@media (max-width: @grid-float-breakpoint-max) {
+		[data-column-toggle] {
+			display: none;
+		}
+	}
+
+	@media (min-width: @grid-float-breakpoint) {
+		.column-left,
+		.column-main,
+		.column-right {
+			position: relative;
+			height: 100%;
+			.transition(width 0.25s ease-out);
+		}
+
+		// Toggle controls:
+		@control-width: 12px;
+		[data-column-toggle] {
+			position: absolute;
+			z-index: 1;
+			top: 50px;
+			width: @control-width;
+			padding: 0;
+			height: 32px;
+			font-size: 17px;
+			color: @gray-lighter;
+			border: 1px solid @gray-lighter;
+			background-color: @white;
+		}
+
+		[data-column-toggle="left"] {
+			.icon('angle-left');
+			left: @control-width * -1;
+			text-indent: 2px;
+			border-right-width: 0;
+		}
+
+		[data-column-toggle="right"] {
+			.icon('angle-right');
+			right: @control-width * -1;
+			text-indent: -2px;
+			border-left-width: 0;
+		}
+
+		// States:
+		&.column-expanded-left {
+			[data-column-toggle="left"] {
+				.icon('angle-right');
+				left: 0;
+				text-indent: 0;
+				border-right-width: 1px;
+				border-left-width: 0;
+			}
+		}
+
+		&.column-expanded-right {
+			[data-column-toggle="right"] {
+				.icon('angle-left');
+				right: 0;
+				text-indent: 0;
+				border-left-width: 1px;
+				border-right-width: 0;
+				.icon('angle-left');
+			}
+		}
+
+		&.column-expanded-left,
+		&.column-expanded-right {
+			.affix, .affix-top, .affix-bottom, .sidebar {
+				// Ensure affix components remain hidden:
+				position: static !important;
+			}
+		}
+
+		// Delimiter lines:
+		.column-left:before,
+		.column-main:before,
+		&.column-layout-3 .column-main:after,
+		&.column-layout-3 .column-right:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			border-right: 1px solid @gray-lighter;
+		}
+
+		.column-left:before {
+			right: 0;
+		}
+
+		.column-main:before {
+			left: -1px;
+		}
+
+		&.column-layout-3 .column-main:after {
+			right: -1px;
+		}
+
+		&.column-layout-3 .column-right:before {
+			left: 0;
+		}
+
+		&.column-expanded-left .column-main:before {
+			left: 0;
+			border-right-width: 0;
+		}
+
+		&.column-expanded-right .column-main:after {
+			right: 0;
+			border-right-width: 0;
+		}
+
+		// Two-column layout:
+		&.column-layout-2 {
+
+			&.column-expanded-left {
+				.column-left {
+					.column-hidden();
+				}
+
+				.column-main {
+					.make-sm-column(12);
+				}
+			}
+		}
+
+		// Three-column layout:
+		&.column-layout-3 {
+
+			.column-left,
+			.column-right,
+			.column-main {
+				height: 100%;
+			}
+
+			&.column-expanded-left .column-main,
+			&.column-expanded-right .column-main {
+				.make-sm-column(9);
+			}
+
+			&.column-expanded-left.column-expanded-right .column-main {
+				.make-sm-column(12);
+			}
+
+			&.column-expanded-left {
+				.column-left {
+					.column-hidden();
+				}
+			}
+
+			&.column-expanded-right {
+				.column-right {
+					.column-hidden();
+				}
+			}
+		}
+	}
+}
+
+.column-hidden() {
+	width: 0;
+	overflow: hidden;
+	padding: 0;
+}
+
+//
+// Cover layout
+// --------------------------------------------------
+.cover-layout {
+	#wrapper {
+		position: relative;
+		z-index: 0;
+
+		// Shift content to left and simulate background column:
+		&:before {
+			.content-generated();
+			display: block;
+			.rgba(@white, 0.90);
+		}
+
+		@media (min-width: @grid-float-breakpoint) {
+			#content,
+			&:before {
+				position: absolute !important;
+				.make-sm-column(6);
+				.make-sm-column-push(4);
+
+				.make-md-column(4);
+				.make-md-column-push(6);
+			}
+		}
+	}
+
+	// Layout-specific components:
+	.cover-header,
+	.cover-alert {
+		.make-row();
+		border: none;
+		margin-bottom: @padding-large-vertical * 3;
+	}
+
+	.cover-header {
+		> h1, > h2, > h3 {
+			.make-sm-column(12);
+		}
+	}
+
+	.cover-alert {
+		.alert {
+			margin-bottom: 0;
+
+			+ .alert {
+				margin-top: 20px;
+			}
+		}
+	}
+}

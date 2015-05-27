@@ -1,0 +1,431 @@
+//
+// Default (EUI) Theme
+// --------------------------------------------------
+@import "../../less/mixins";
+@import "../../less/variables";
+
+//
+// @Overrides
+// --------------------------------------------------
+
+// Reset some border-radius:
+.form-control,
+.nav-pills > li > a {
+	border-radius: 0;
+}
+
+//
+// Layout
+// --------------------------------------------------
+
+#header {
+	.make-row();
+	background-color: @white;
+
+	.navbar-brand .app-title {
+		font-size: @font-size-header;
+
+		@media (max-width: @grid-float-breakpoint-max) {
+			line-height: 40px;
+		}
+	}
+}
+
+// Header & transitions:
+@media (min-width: @grid-float-breakpoint) {
+	.has-transitions {
+		@header-height: 145px;
+		@header-delta-intermediary: 25px;
+		@header-delta-final: 85px;
+		@content-top: @header-height + @padding-large-vertical;
+
+		#header {
+			.animatable(height);
+			height: @header-height;
+			position: fixed;
+			z-index: @zindex-navbar;
+			top: 0;
+			left: 0;
+			padding: 0;
+			margin: 0;
+			width: 100%;
+
+			> .navbar {
+				z-index: 1;
+				border-bottom: none;
+
+				.navbar-brand {
+					.logo, .app-title {
+						.animatable();
+					}
+				}
+
+				.navbar-controls {
+					.animatable(margin-top);
+					margin-right: -10px;
+
+					> li > a {
+						.animatable(margin);
+
+						&.top-control {
+							.animatable(opacity);
+							opacity: 0;
+						}
+					}
+					.dropdown-menu {
+						.animatable(margin-top);
+					}
+				}
+			}
+
+			#navigation {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				border-top: 5px solid @brand-legacy-primary;
+			}
+		}
+
+		#content {
+			.animatable(padding-top);
+			padding-top: @content-top;
+
+			.sidebar {
+				.animatable(top);
+				position: fixed;
+				top: @content-top;
+			}
+
+			> .headline {
+				margin-top: -1 * @padding-large-vertical;
+			}
+		}
+
+		// 1st transition:
+		#wrapper.affix {
+			// Reset transform property (cf. https://github.com/twbs/bootstrap/commit/7da34cc0ec493355e8f6123875261e508d826d83):
+			-webkit-transform: inherit;
+			transform: inherit;
+
+			#header {
+				height: @header-height - @header-delta-intermediary;
+
+				> .navbar .navbar-brand {
+					.logo {
+						width: 30px;
+						height: 34px;
+						margin-right: -2px;
+					}
+
+					.app-title {
+						line-height: 34px;
+					}
+				}
+
+				.navbar-controls {
+					> li {
+						> a {
+							margin-top: 2px;
+							margin-bottom: 2px;
+
+							&.top-control {
+								opacity: 1;
+							}
+						}
+
+						> .tooltip {
+							display: none !important;
+						}
+					}
+
+					.dropdown-menu {
+						margin-top: 0;
+					}
+				}
+			}
+
+			#content {
+				padding-top: @content-top - @header-delta-intermediary;
+
+				.sidebar {
+					top: @content-top - @header-delta-intermediary;
+				}
+			}
+
+			// 2nd transition:
+			#header.affix {
+				height: @header-height - @header-delta-final;
+
+				> .navbar {
+					margin-top: -1 * (@header-height - @header-delta-final);
+					height: 0;
+					> div {
+						margin-top: @header-height - @header-delta-final;
+
+						&.navbar-collapse {
+							float: right;
+						}
+					}
+
+					.navbar-brand {
+						height: 0;
+
+						.logo {
+							.transition(none);
+							overflow: hidden;
+						}
+
+						.app-title {
+							margin-top: -50px;
+						}
+					}
+
+					.navbar-controls {
+						margin-top: 4px;
+
+						> li > a {
+							margin: 0;
+						}
+					}
+				}
+
+				+ #content {
+					padding-top: @content-top - @header-delta-final;
+
+					.sidebar {
+						top: @content-top - @header-delta-final;
+					}
+				}
+			}
+		}
+	}
+}
+
+//
+// Cover layout
+// --------------------------------------------------
+.cover-layout {
+
+	.cover-header {
+		background-color: @white;
+	}
+}
+
+//
+// Buttons
+// --------------------------------------------------
+
+.btn-default {
+	.button-variant(
+		@btn-default-color, @btn-default-bg, @btn-default-border,
+		@btn-default-selected, @btn-default-selected, @btn-default-accent
+	);
+}
+.btn-primary {
+	.button-variant(
+		@btn-primary-color, @btn-primary-bg, @btn-primary-border,
+		@white, @btn-primary-selected, @btn-primary-accent
+	);
+}
+.btn-info {
+	.button-variant(
+		@btn-info-color, @btn-info-bg, @btn-info-border,
+		@btn-info-color, @btn-info-selected, @btn-info-accent
+	);
+}
+.btn-success {
+	.button-variant(
+		@btn-success-color, @btn-success-bg, @btn-success-border,
+		@btn-success-color, @btn-success-selected, @btn-success-accent
+	);
+}
+.btn-warning {
+	.button-variant(
+		@btn-warning-color, @btn-warning-bg, @btn-warning-border,
+		@btn-warning-selected, @btn-warning-selected, @btn-warning-accent
+	);
+}
+.btn-danger {
+	.button-variant(
+		@btn-danger-color, @btn-danger-bg, @btn-danger-border,
+		@btn-danger-color, @btn-danger-selected, @btn-danger-accent
+	);
+}
+
+.btn-secondary {
+	.button-variant(
+		@btn-secondary-color, @btn-secondary-bg, @btn-secondary-border,
+		@link-hover-color, @btn-secondary-selected, @btn-secondary-accent
+	);
+
+	background-color: @white;
+}
+
+.btn-link {
+	.button-variant(
+		@link-color, transparent, transparent,
+		@link-hover-color, @btn-default-selected, @btn-default-accent
+	);
+
+	border-radius: @border-radius-base;
+}
+
+// Dropdown menus
+// --------------------------------------------------
+.dropdown-menu {
+	.box-shadow(0 0 12px rgba(0, 0, 0, 0.1));
+
+	// Hover/Focus state:
+	> li {
+		> a:hover,
+		> a:focus,
+		&.active > a {
+			text-decoration: none;
+			background-color: @btn-default-accent;
+		}
+	}
+}
+
+//
+// Nav
+// --------------------------------------------------
+.navbar-nav {
+	> li {
+		> a {
+			&:hover, &:focus {
+				color: @brand-default;
+			}
+		}
+
+		> .dropdown-menu {
+			border-radius: 0;
+			min-width: 300px; // Fits in supported devices
+
+			padding: @padding-large-vertical @padding-large-horizontal;
+
+			@media (min-width: @grid-float-breakpoint) {
+				padding: @padding-large-vertical*2 @padding-large-horizontal @padding-large-vertical*2 @padding-large-vertical*2;
+			}
+
+			> li > a {
+				background-color: inherit;
+			}
+		}
+
+		.nav.nav-stacked {
+			> li {
+
+				&.nav-header {
+					position: relative;
+					color: @brand-default;
+					font-size: 16px;
+					border: none;
+
+					&:first-child > h3 {
+						margin-top: 0;
+					}
+
+					.fa {
+						float: right;
+						font-size: @font-size-header;
+					}
+				}
+
+				> a {
+					 border: none;
+					 padding: @padding-base-vertical/2 0;
+				 }
+			}
+		}
+	}
+}
+
+// Navigation bars
+// ------------------------------------------------
+//
+
+//
+// Primary navbar
+//
+.nav.navbar-primary {
+	background: @gray-lighter;
+	.box-shadow(inset 0 -4px 14px -4px rgba(0, 0, 0, 0.1));
+
+	> li {
+		> a {
+			border-right: none;
+			padding-top: @padding-base-vertical * 3;
+			padding-bottom: @padding-base-vertical * 3;
+
+			&:hover {
+				background-color: @gray-light;
+			}
+		}
+
+		&.active > a {
+			color: @brand-default;
+			background: @white;
+		}
+
+		&.open > a {
+			color: @brand-default;
+			background: @white;
+			.box-shadow(0 -4px 8px rgba(0, 0, 0, 0.1));
+		}
+
+		.dropdown-menu {
+			.box-shadow(0 6px 12px 2px rgba(0, 0, 0, 0.175));
+			background-color: @white;
+		}
+
+		.nav.nav-stacked {
+			> li {
+				> a {
+					border: none;
+					padding: @padding-base-vertical/2 0;
+				}
+			}
+		}
+	}
+}
+
+//
+// Controls navbar
+//
+.nav.navbar-controls > li {
+
+	> a {
+		font-size: @font-size-header - 2;
+	}
+
+	> a:hover, a:active,
+	&.active > a, &.open > a {
+		color: @brand-default;
+	}
+
+	@media (min-width: @grid-float-breakpoint) {
+		> .dropdown-menu {
+			.bubble-tail-border(@dropdown-bg, @dropdown-border, @align: right, @align-value: 11px, @position: absolute);
+			margin-top: -10px;
+		}
+	}
+
+	> .tooltip,
+	> .slide-control > .tooltip {
+		margin-top: 16px;
+
+		.tooltip-inner {
+			color: @brand-default;
+			background-color: transparent;
+		}
+
+		.tooltip-arrow {
+			display: none;
+		}
+	}
+
+	> .slide-control > .tooltip {
+		margin-top: 2px;
+		font-weight: normal;
+	}
+}

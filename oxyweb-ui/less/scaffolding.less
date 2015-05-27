@@ -1,0 +1,54 @@
+//
+// Scaffolding
+// --------------------------------------------------
+
+// Default selectors
+// ------------------------------------------------
+body {
+	min-width: 320px;
+}
+
+section {
+	margin-bottom: @padding-large-vertical;
+
+	@media (min-width: @screen-xs-min) {
+		margin-bottom: @padding-large-vertical * 2;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		margin-bottom: @padding-large-vertical * 3;
+	}
+}
+
+article {
+	margin-bottom: @padding-base-vertical;
+
+	@media (min-width: @screen-xs-min) {
+		margin-bottom: @padding-base-vertical * 2;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		margin-bottom: @padding-base-vertical * 3;
+	}
+}
+
+[role="button"] {
+	cursor: pointer;
+}
+
+small,
+.small  {
+	font-size: @font-size-small;
+}
+
+.smaller {
+	font-size: @font-size-smaller;
+}
+
+.no-gutter {
+	margin: 0;
+
+	> [class*="col-"] {
+		padding: 0;
+	}
+}

@@ -1,0 +1,41 @@
+{{~#extend "output-view"}}
+{{~#content "output"}}
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="lt-ie9" lang="en"><![endif]-->
+<!--[if gte IE 9]><!-->
+<html lang="en">
+<!--<![endif]-->
+	<head>
+		{{#block "head-top"}}{{/block}}
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>{{#block "title"}}Basic template{{/block}} &middot; {{package.title}}</title>
+
+		{{> compatibility}}
+
+		<!-- {{package.name}} -->
+		<link rel="shortcut icon" href="{{assets}}{{obliqueui.vendor}}images/favicon.ico" />
+		<link rel="stylesheet" href="{{assets}}{{obliqueui.vendor}}css/{{package.name}}.css"/>
+		<link rel="stylesheet" href="{{assets}}{{obliqueui.vendor}}themes/{{#block "theme"}}default{{/block}}/{{#block "theme"}}default{{/block}}-theme.css" />
+		<script src="{{assets}}{{obliqueui.vendor}}js/{{package.name}}-all.js"></script>
+
+		{{#block "head"}}
+			<!-- <{{package.name}}:placeholder> -->
+			<script src="{{assets}}vendor/holderjs/holder.js"></script>
+			<style type="text/css">
+				img.placeholder {
+					background-color: #EEEEEE;
+					-webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+					box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+				}
+			</style>
+			<!-- </{{package.name}}:placeholder> -->
+		{{/block}}
+	</head>
+	<body class="{{#block "layout"}}base{{/block}}-layout has-tooltips"{{#block "body-attrs"}}{{/block}}>
+		{{#block "base"}}{{/block}}
+	</body>
+</html>
+{{/content~}}
+{{/extend~}}

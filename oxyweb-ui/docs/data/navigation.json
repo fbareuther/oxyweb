@@ -1,0 +1,393 @@
+{
+	"global": {
+		"css": {
+			"title": "CSS",
+			"items": {
+				"types": {
+					"title": "Types",
+					"items": {
+						"headings": {
+							"title": "Headings"
+						},
+						"block": {
+							"title": "Block elements"
+						},
+						"inline": {
+							"title": "Inline elements"
+						}
+					}
+				},
+				"buttons": {
+					"title": "Buttons",
+					"selector": ".btn",
+					"items": {
+						"usage": {
+							"title": "Usage",
+							"items": {
+								"tags": {
+									"title": "Tags",
+									"selector": "button.btn, input.btn, a.btn"
+								},
+								"block": {
+									"title": "Block level",
+									"selector": ".btn-block"
+								},
+								"icons": {
+									"title": "With icons",
+									"selector": ".btn .fa, .btn .glyphicon"
+								}
+							}
+						},
+						"variants": {
+							"title": "Variants"
+						},
+						"sizes": {
+							"title": "Sizes",
+							"selector": ".btn.btn-xs, .btn.btn-sm, .btn.btn-lg"
+						},
+						"states": {
+							"title": "States",
+							"items": {
+								"active": {
+									"title": "Active",
+									"selector": ".btn.active"
+								},
+								"disabled": {
+									"title": "Disabled",
+									"selector": ".btn[disabled=\"disabled\"]"
+								}
+							}
+						},
+						"reference": {
+							"title": "Full reference"
+						}
+					}
+				},
+				"forms": {
+					"title": "Forms",
+					"selector": ".form",
+					"items": {
+						"controls": {
+							"title": "Controls",
+							"items": {
+								"input-text": {
+									"title": "Text input",
+									"selector": "input.form-control"
+								},
+								"textarea": {
+									"title": "Textarea",
+									"selector": "textarea.form-control"
+								},
+								"checkbox": {
+									"title": "Checkbox",
+									"selector": ".checkbox, .checkbox label, .checkbox input[type=\"checkbox\"]"
+								},
+								"radio": {
+									"title": "Radio",
+									"selector": ".radio, .radio label, .checkbox input[type=\"radio\"]"
+								},
+								"select": {
+									"title": "Select",
+									"selector": "select.form-control"
+								}
+							}
+						},
+						"actions": {
+							"title": "Actions",
+							"selector": ".form-actions"
+						},
+						"fieldsets": {
+							"title": "Fieldsets",
+							"selector": "fieldset, fieldset legend"
+						},
+						"layouts": {
+							"title": "Layouts",
+							"items": {
+								"vertical": {
+									"title": "Vertical",
+									"selector": ".form, .form .form-group"
+								},
+								"horizontal": {
+									"title": "Horizontal",
+									"selector": ".form-horizontal, .form-horizontal .form-group, .form-horizontal .control-label"
+								},
+								"inline": {
+									"title": "Inline",
+									"selector": ".form-inline, .form-inline .form-group"
+								}
+							}
+						},
+						"feedback": {
+							"title": "Feedback",
+							"items": {
+								"help": {
+									"title": "Help",
+									"selector": "input[placeholder=\"...\"], input[data-toggle=\"tooltip\"], .form-group .help-block, .form-group .form-control-static"
+								},
+								"validation": {
+									"title": "Validation states",
+									"selector": ".form-group.has-success, .form-group.has-warning, .form-group.has-error, .form-group.has-feedback"
+								}
+							}
+						}
+					}
+				},
+				"tables": {
+					"title": "Tables",
+					"selector": "table",
+					"items": {
+						"variants": {
+							"title": "Variants",
+							"items": {
+								"default": {
+									"title": "Default",
+									"selector": ".table"
+								},
+								"bordered": {
+									"title": "Bordered",
+									"selector": ".table.table-bordered"
+								},
+								"condensed": {
+									"title": "Condensed",
+									"selector": ".table.table-condensed"
+								}
+							}
+						},
+						"feedback": {
+							"title": "Feedback",
+							"items": {
+								"hover": {
+									"title": "Hover",
+									"selector": ".table.table-hover"
+								},
+								"striped": {
+									"title": "Striped",
+									"selector": ".table.table-striped"
+								},
+								"contextual": {
+									"title": "Contextual",
+									"selector": ".table tr.active, .table tr.success, .table tr.info, .table tr.warning, .table tr.danger"
+								}
+							}
+						},
+						"responsive": {
+							"title": "Responsive",
+							"selector": ".table-responsive .table"
+						}
+					}
+				}
+			}
+		},
+		"components": {
+			"title": "Components",
+			"items": {
+				"navs": {
+					"title": "Navigation",
+					"selector": ".nav",
+					"items": {
+						"stacked": {
+							"title": "Stacked",
+							"selector": ".nav.nav-stacked"
+						},
+						"tree": {
+							"title": "Tree",
+							"selector": ".nav.nav-tree"
+						},
+						"navbars": {
+							"title": "Bars",
+							"selector": ".nav.navbar",
+							"items": {
+								"primary": {
+									"title": "Primary",
+									"selector": ".nav.navbar-nav.navbar-primary"
+								},
+								"controls": {
+									"title": "Controls",
+									"selector": ".navbar .nav.navbar-nav.navbar-controls, .navbar-controls .slide-control, .navbar-controls .search-control, .navbar-controls .top-control"
+								}
+							}
+						},
+						"wizard": {
+							"title": "Wizard",
+							"selector": ".nav.nav-wizard",
+							"items": {
+								"layouts": {
+									"title": "Layouts",
+									"items": {
+										"wizard-vertical": {
+											"title": "Vertical wizard",
+											"selector": ".nav.nav-wizard"
+										},
+										"wizard-horizontal": {
+											"title": "Horizontal wizard",
+											"selector": ".nav.nav-wizard.horizontal"
+										}
+									}
+								},
+								"states": {
+									"title": "State variants",
+									"selector": ".nav.nav-wizard > li.valid, .nav.nav-wizard > li.invalid, .nav.nav-wizard > li.error, .nav.nav-wizard > li.success, .nav.nav-wizard > li.warning,.nav.nav-wizard > li.danger"
+								},
+								"sizes": {
+									"title": "Sizes",
+									"selector": ".nav.nav-wizard.nav-wizard-sm, .nav.nav-wizard.nav-wizard-lg"
+								},
+								"labels": {
+									"title": "Labeled steps",
+									"selector": ".nav.nav-wizard > li[data-step-label]"
+								}
+							}
+						}
+					}
+				},
+				"modals": {
+					"title": "Modals",
+					"selector": ".modal, .modal .modal-dialog, .modal .modal-content, .modal .modal-header, .modal .modal-title, .modal .modal-body, .modal .modal-footer",
+					"items": {
+						"usage" : {
+							"title" : "Usage",
+							"selector": "[data-toggle=\"modal\"], .modal.fade, .modal [data-dismiss=\"modal\"]"
+						},
+						"sizes" : {
+							"title" : "Sizes",
+							"selector": ".modal .modal-dialog.modal-sm, .modal .modal-dialog.modal-lg"
+						},
+						"layouts" : {
+							"title" : "Layouts",
+							"items": {
+								"modal-sidebar": {
+									"title": "Modal with sidebar",
+									"selector": ".modal .modal-content > .modal-sidebar"
+								}
+							}
+						},
+						"variants" : {
+							"title" : "Variants",
+							"items": {
+								"modal-wizard": {
+									"title": "Modal with wizard",
+									"selector": ".modal.modal-wizard"
+								},
+								"modal-sidebar-wizard": {
+									"title": "Modal with sidebar & wizard",
+									"selector": ".modal.modal-wizard, .modal .modal-content > .modal-sidebar"
+								}
+							}
+						}
+					}
+				},
+				"dropdowns": {
+					"title": "Dropdowns",
+					"items": {
+						"usage" : {
+							"title" : "Usage",
+							"selector": "[data-toggle=\"dropdown\"], .dropdown, .dropdown .dropdown-menu, .dropdown-menu .dropdown-header"
+						},
+						"alignment" : {
+							"title" : "Alignment",
+							"selector": ".dropdown .dropdown-menu.dropdown-menu-right"
+						}
+					}
+				},
+				"alerts": {
+					"title": "Alerts",
+					"selector": ".alert",
+					"items": {
+						"variants": {
+							"title": "Variants",
+							"selector": ".alert.alert-success, .alert.alert-info, .alert.alert-warning, .alert.alert-danger"
+						},
+						"dismissible": {
+							"title": "Dismissible alerts",
+							"selector": ".alert.alert-dismissable [data-dismiss=\"alert\"]"
+						}
+					}
+				},
+				"callouts": {
+					"title": "Callouts",
+					"selector": ".callout",
+					"items": {
+						"variants": {
+							"title": "Variants",
+							"selector": ".callout.callout-success, .callout.callout-info, .callout.callout-warning, .callout.callout-danger"
+						}
+					}
+				},
+				"panels": {
+					"title": "Panels",
+					"selector": ".panel",
+					"items": {
+						"variants": {
+							"title": "Variants",
+							"selector": ".panel.panel-success, .panel.panel-info, .panel.panel-warning, .panel.panel-danger, .panel.panel-secondary, , .panel.panel-lg"
+						}
+					}
+				},
+				"feedback": {
+					"title": "Informative Feedback",
+					"items": {
+						"tooltips": {
+							"title": "Tooltips",
+							"modes": ["js"],
+							"selector": ".has-tooltips [data-toggle=\"tooltip\"][title=\"...\"]"
+						},
+						"badges": {
+							"title": "Badges",
+							"selector": ".badge, .badge.badge-success, .badge.badge-info, .badge.badge-warning, .badge.badge-danger"
+						},
+						"indicators": {
+							"title": "Indicators",
+							"items": {
+								"toggles": {
+									"title": "Toggles",
+									"selector": ".toggle, .toggle-down-right, .toggle-down-left, .toggle-up-down, .toggle-up-right, .toggle-up-left, .toggle-right-left, .toggle-right-down, .toggle-right-up, .toggle-left-right, .toggle-left-down, .toggle-left-up"
+								},
+								"spinner": {
+									"title": "Spinner",
+								"selector": ".fa.fa-spinner.fa-spin"
+								},
+								"overlay": {
+									"title": "Overlay",
+									"selector": ".has-overlay .overlay"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"layouts": {
+			"title": "Layouts",
+			"items": {
+				"default": {
+					"title": "Default layout",
+					"type": "page"
+				},
+				"two-column": {
+					"title": "Two-Column layout",
+					"type": "page"
+				},
+				"three-column": {
+					"title": "Three-Column layout",
+					"type": "page"
+				},
+				"cover": {
+					"title": "Cover layout",
+					"type": "page"
+				},
+				"error": {
+					"title": "Error layout",
+					"type": "page"
+				}
+			}
+		},
+		"widgets": {
+			"title": "Widgets",
+			"items": {
+				"preview": {
+					"title": "Preview"
+				}
+			}
+		}
+	}
+}

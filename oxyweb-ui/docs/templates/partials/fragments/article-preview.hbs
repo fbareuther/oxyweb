@@ -1,0 +1,22 @@
+<h{{length sections}} id="{{join sections "-"}}" {{#lt (length sections) 2}}class="page-header"{{/lt}}>{{content.title}}</h{{length sections}}>
+
+{{#if content.items}}
+	{{#each content.items}}
+		{{#if this.items}}
+			{{include (format '{0}-{1}-preview' (last ../../sections) @key)}}
+		{{else}}
+			{{#context path=(format 'snippets/{0}/{1}-{2}' (join ../../../sections "/") (last ../../../sections) @key)}}
+				{{#arrayConcat ../../../sections @key}}
+					<h{{length this}} id="{{join this "-"}}">
+						<span>{{../title}}</span>
+						{{#if ../selector}}<small>{{../selector}}</small>{{/if}}
+					</h{{length this}}>
+					{{include (format "docs/{0}.hbs" ../path)}}
+				{{/arrayConcat}}
+			{{/context}}
+		{{/if}}
+	{{/each}}
+{{else}}
+	{{include (format '{0}-preview.hbs' (join sections "-"))}}
+{{/if}}
+

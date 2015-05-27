@@ -1,0 +1,43 @@
+{{~#prettify}}
+<div class="navbar">
+	<ul class="nav navbar-nav navbar-right navbar-controls" role="menu">
+		<li role="menuitem">
+			<a href="#content" role="button" class="slide-control slide-auto top-control">
+				<span class="toggles"></span>
+				<span class="slides">Back to top</span>
+			</a>
+		</li>
+		<li role="menuitem">
+			<a role="button" class="slide-control search-control" data-provides="activable">
+				<label for="docs-example-navs-controls-search" class="toggles" title="Search">
+					<span class="sr-only">Search</span>
+				</label>
+				<input class="slides" type="text" placeholder="Search" id="docs-example-navs-controls-search" />
+			</a>
+		</li>
+		<li class="dropdown" role="menuitem">
+			<a role="button" data-toggle="dropdown" title="Settings">
+				<span class="sr-only">Settings</span>
+				<span class="fa fa-cog"></span>
+			</a>
+			<h2 id="docs-example-navs-controls-settings" class="sr-only">Settings menu</h2>
+			{{#extend "dropdown-menu"}}
+				{{#content "variant"}} nav nav-stacked{{/content}}
+				{{#content "id"}}docs-example-navs-controls-settings{{/content}}
+				{{#content "header-top"}}
+					<li class="nav-header" role="presentation">
+						<span>Navigation Header</span>
+						<span class="fa fa-magic"></span>
+					</li>
+				{{/content}}
+				{{#content "header-bottom"}}
+					<li class="nav-header" role="presentation">
+						<span>Navigation Header</span>
+						<span class="fa fa-flag"></span>
+					</li>
+				{{/content}}
+			{{/extend}}
+		</li>
+	</ul>
+</div>
+{{/prettify~}}

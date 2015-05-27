@@ -1,0 +1,23 @@
+{{#extend "default-view"}}
+	{{#content "content-layout"}}two-column{{/content}}
+	{{#block "title"}}Two-Column Layout{{/block}}
+	{{#content "default"}}
+		<div class="column-layout column-layout-2 row">
+			<div class="column-left hidden-print" data-column="left" role="complementary">
+				{{#block "left"}}
+					{{#context text="left"}}
+						{{> placeholder}}
+					{{/context}}
+				{{/block}}
+			</div>
+			<div class="column-main">
+				{{#block "main"}}
+					{{#context text="main"}}
+						{{> placeholder}}
+					{{/context}}
+				{{/block}}
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	{{/content}}
+{{/extend}}

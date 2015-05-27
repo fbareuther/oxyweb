@@ -1,0 +1,315 @@
+//
+// Mixins
+// --------------------------------------------------
+
+@import "../vendor/bootstrap/less/mixins.less";
+@import (reference) "../vendor/font-awesome/less/font-awesome.less";
+
+
+// Vertical rhythm
+.rhythm(@factor: 1){
+	margin-top: @line-height-computed * @factor;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+// RGBA conversion:
+.rgba(@color, @alpha){
+	@rgba: rgba(red(@color),green(@color),blue(@color),@alpha);
+	@argb: argb(@rgba);
+	background-color: @color;
+	background-color: @rgba;
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{argb}', endColorstr='@{argb}')";
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{argb}', endColorstr='@{argb}')";
+}
+
+// Em font-size calculator:
+.font-size(@fontsize: 16) {
+	font-size: unit((@fontsize/@font-size-base) * 1em, em);
+}
+
+// Border Radius:
+.border-radius(@radius: @border-radius-base) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+
+	-moz-background-clip:    padding;
+	-webkit-background-clip: padding-box;
+	background-clip:         padding-box;
+}
+
+// Fonts:
+.font-family(@fontFamily) {
+	font-family: @fontFamily, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.font-face(@fontFamily, @fileName) {
+	@font-face {
+		font-family: @fontFamily;
+		src: url('@{fileName}.eot');
+		src: url('@{fileName}.eot?#iefix') format('embedded-opentype'),
+		url('@{fileName}.woff') format('woff'),
+		url('@{fileName}.ttf') format('truetype'),
+		url('@{fileName}.svg#@{fontFamily}') format('svg');
+	}
+}
+
+//
+// Icon mixin (based on FontAwesome icons).
+//
+// Usage:   .foo {
+//              .icon('flag');
+//          }
+.icon(@icon, @layer: before, @padding-right: @padding-xs-horizontal, @padding-left: @padding-xs-horizontal) {
+	&:before when (@layer = before) {
+		.fa;
+		padding-right: @padding-right;
+		min-width: 14px;
+	}
+	&:after when (@layer = after) {
+		.fa;
+		padding-left: @padding-left;
+		min-width: 14px;
+	}
+	.icon-content(@icon, @layer);
+}
+
+.icon-content(@icon, @layer: before) {
+	@fa-icon-var: "fa-var-@{icon}";
+
+	&:before when (@layer = before) {
+		content: @@fa-icon-var;
+	}
+	&:after when (@layer = after) {
+		content: @@fa-icon-var;
+	}
+}
+
+//
+// Toogle mixin (based on 'angle' icons, instead of 'chevrons' or 'carets').
+//
+.toggle(@default-icon: 'angle-down', @toggle-icon: 'angle-up', @state: open, @layer: before) {
+	.icon(@default-icon, @layer);
+
+	&.@{state},
+	.@{state} > &,
+	.@{state} > a &,
+	.@{state} > button &,
+	a.@{state} &,
+	button.@{state} & {
+		.icon-content(@toggle-icon, @layer);
+	}
+}
+
+// Toggle modifiers:
+.toggle-up(@layer: before) {   .icon('angle-up', @layer); }
+.toggle-right(@layer: before) { .icon('angle-right', @layer); }
+.toggle-down(@layer: before) {   .icon('angle-down', @layer); }
+.toggle-left(@layer: before) {  .icon('angle-left', @layer);}
+
+// COMPONENT MIXINS
+// --------------------------------------------------
+
+// Button variants
+// @Override
+// -------------------------
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+.button-variant(
+	@color, @background, @border,
+	@selected-text, @selected-border, @selected-bg) {
+	color: @color;
+	border-color: @border;
+
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active,
+	.open .dropdown-toggle& {
+		color: @selected-text;
+		text-decoration: none;
+		background-color: @selected-bg;
+		border-color: @selected-border;
+	}
+
+	&.focus {
+		.tab-focus();
+		text-decoration: none;
+	}
+
+	&:active,
+	&.active,
+	.open .dropdown-toggle& {
+		background-image: none;
+	}
+
+	&.disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		&,
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			background-color: @background;
+			border-color: @border;
+		}
+	}
+
+	.badge {
+		color: @background;
+		background-color: @color;
+	}
+}
+
+// Panels
+// @Override
+// -------------------------
+.panel-variant(@border; @heading-text-color; @heading-bg-color; @heading-border) {
+
+	.panel& {
+		.box-shadow(0 0 3px 1px fade(@border, 20%));
+		padding: 0;
+	}
+
+	> .panel-heading {
+		color: @heading-text-color;
+		background-color: @heading-bg-color;
+		border-color: @heading-border;
+
+		+ .panel-collapse .panel-body {
+			border-top-color: @border;
+		}
+	}
+
+	.panel-body {
+		background-color: #FFFFFF;
+	}
+
+	> .panel-footer {
+		+ .panel-collapse .panel-body {
+			border-bottom-color: @border;
+		}
+	}
+}
+
+// Badges
+// -------------------------
+.badge-variant(@bg-color) {
+	background-color: @bg-color;
+}
+
+// Animations
+// --------------------------------------------------
+.animatable(@property: all, @duration: 0.6s, @timing-function: ease-in-out) {
+	.transition-property(@property);
+	.transition-duration(@duration);
+	.animation-timing-function(@timing-function);
+}
+
+// Layers
+// --------------------------------------------------
+.content-generated(@content: '', @index: 0) {
+	content: @content;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: @index;
+}
+
+.bubble-tail(@color: #efefef, @width: 12px, @align: none, @align-value: auto, @placement: top, @direction: top, @position: relative, @layer: after) {
+	position: @position;
+
+	&:before when (@layer = before) {
+		content: '';
+		position: absolute;
+		border-style: solid;
+		display: block;
+		width: 0;
+		z-index: 1;
+		margin-left: auto;
+		margin-right: auto;
+
+		& when (iskeyword(@align-value)) {
+			left: 0;
+			right: 0;
+		}
+
+		& when (ispixel(@align-value)), (ispercentage(@align-value)) {
+			@{align}: @align-value;
+		}
+
+		& when (@placement = top) {
+			@{placement}: @width * -1;
+		}
+
+		& when (@placement = bottom) and (@direction = top) {
+			bottom: 0;
+		}
+
+		& when (@direction = top) {
+			border-width: 0 @width @width;
+			border-color: @color transparent;
+		}
+
+		& when (@direction = right) {
+			border-width: @width 0 @width @width;
+			border-color: transparent @color;
+			top: 0;
+			left: auto;
+			right: @width * -1;
+		}
+	}
+
+	&:after when (@layer = after) {
+		content: '';
+		position: absolute;
+		border-style: solid;
+		display: block;
+		width: 0;
+		z-index: 1;
+		margin-left: auto;
+		margin-right: auto;
+
+		& when (iskeyword(@align-value)) {
+			left: 0;
+			right: 0;
+		}
+
+		& when (ispixel(@align-value)), (ispercentage(@align-value)) {
+			@{align}: @align-value;
+		}
+
+		& when (@placement = top) {
+			@{placement}: @width * -1;
+		}
+
+		& when (@placement = bottom) and (@direction = top) {
+			bottom: 0;
+		}
+
+		& when (@direction = top) {
+			border-width: 0 @width + 1 @width + 1;
+			border-color: @color transparent;
+		}
+
+		& when (@direction = right) {
+			border-width: @width + 1 0 @width + 1 @width + 1;
+			border-color: transparent @color;
+			top: 0;
+			left: auto;
+			right: @width * -1;
+		}
+	}
+}
+
+.bubble-tail-border(@bg: #efefef, @border: #666666, @align: center, @align-value: auto, @placement: top, @position: relative) {
+	.bubble-tail(@bg, 12px, @align, @align-value, @placement: @placement, @position: @position, @layer: after);
+	.bubble-tail(@border, 13px, @align, @align-value, @placement: @placement, @position: @position, @layer: before);
+}

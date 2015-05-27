@@ -1,0 +1,16 @@
+---
+layout: base.hbs
+ui-layout: default
+---
+<a href="#content" class="sr-only">Skip to main content</a>
+<div id="wrapper" data-spy="affix" data-offset-top="{{obliqueui.offsets.intermediary}}" data-offset-bottom="0">
+	{{> layout-header }}
+	<div id="content" role="main">
+		{{> compatibility-alerts }}
+		{{#if headline}}
+			{{> headline}}
+		{{/if}}
+		{{> body }}
+	</div>
+</div>
+{{> layout-footer }}

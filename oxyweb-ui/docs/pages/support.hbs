@@ -1,0 +1,18 @@
+---
+layout: two-column.hbs
+section: support
+title: Support
+description: Need help on using <%= package.title %>?
+---
+<article>
+	<h2 id="support-reporting" class="page-header">Reporting an issue</h2>
+	<p>Did you find something that needs to be fixed or updated? Please let us know through our <a href="{{package.issues}}">issue tracking system</a>.</p>
+	<a href="{{package.issues}}" class="btn btn-primary btn-lg">
+		<span class="fa fa-pencil-square-o"></span>
+		<span>Submit an issue</span>
+	</a>
+</article>
+<article>
+	<h2 id="support-changelog" class="page-header">Changelog</h2>
+	{{md 'CHANGELOG.md'}}
+</article>

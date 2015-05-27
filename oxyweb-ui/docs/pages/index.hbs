@@ -1,0 +1,178 @@
+---
+title: Home
+section: home
+---
+<div class="row headline headline-lg">
+	<h1 id="home" class="docs-oblique">
+		<img src="{{assets}}images/oblique-small.png" alt="ObliqueUI" />
+		<span>Oblique<span>UI</span></span>
+	</h1>
+	<p class="lead">{{package.description}}</p>
+	<p>
+		<a href="getting-started.html#download" class="btn btn-primary btn-lg" title="HTML5 Powered with Connectivity / Realtime, CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with Connectivity / Realtime, CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage">
+			<span class="fa fa-download"></span>
+			<span>Download {{package.title}}</span>
+		</a>
+	</p>
+	<p>
+		<span>v{{package.version}}</span>
+		<span> - </span>
+		<a href="{{package.repository.home}}" title="Go to project GIT repository on Stash" data-placement="bottom">
+			<span class="sr-only">{{package.title}} GIT repository</span>
+			<span class="fa fa-bitbucket"></span>
+		</a>
+	</p>
+</div>
+
+<h1 class="page-header">What's next?</h1>
+<div class="row">
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="btn btn-info dropcap dropcap-block">
+					<span class="fa fa-flag"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>
+					<a href="getting-started.html">
+						<span class="fa fa-angle-right"></span>
+						<span>Getting started</span>
+					</a>
+				</h2>
+				<p>Download and integrate {{package.title}} in your application to start implementing your front-end.</p>
+			</div>
+		</section>
+	</div>
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="btn btn-info dropcap dropcap-block">
+					<span class="fa fa-css3"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>
+					<a href="css.html">
+						<span class="fa fa-angle-right"></span>
+						<span>CSS</span>
+					</a>
+				</h2>
+				<p>Discover {{package.title}} CSS settings, fundamental HTML elements styled and enhanced with extensible classes, and an advanced grid system.</p>
+			</div>
+		</section>
+	</div>
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="btn btn-info dropcap dropcap-block">
+					<span class="fa fa-gears"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>
+					<a href="components.html">
+						<span class="fa fa-angle-right"></span>
+						<span>Components</span>
+					</a>
+				</h2>
+				<p>Learn {{package.title}} reusable components providing iconography, dropdowns, input groups, navigation, alerts, and much more.</p>
+			</div>
+		</section>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="btn btn-info dropcap dropcap-block">
+					<span class="fa fa-th-list"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>
+					<a href="layouts/index.html">
+						<span class="fa fa-angle-right"></span>
+						<span>Layouts</span>
+					</a>
+				</h2>
+				<p>Visualize live examples of available {{package.title}} layouts.</p>
+			</div>
+		</section>
+	</div>
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="btn btn-info dropcap dropcap-block">
+					<span class="fa fa-cube"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>
+					<a href="codebox.html">
+						<span class="fa fa-angle-right"></span>
+						<span>CodeBox</span>
+					</a>
+				</h2>
+				<p>Live preview, edit &amp; copy source code from ready-to-use snippets using the CodeBox.</p>
+			</div>
+		</section>
+	</div>
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="btn btn-info dropcap dropcap-block">
+					<span class="fa fa-question-circle"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>
+					<a href="support.html">
+						<span class="fa fa-angle-right"></span>
+						<span>Support</span>
+					</a>
+				</h2>
+				<p>Need help on using {{package.title}}? Find something that needs to be fixed or updated? Please let us know.</p>
+			</div>
+		</section>
+	</div>
+</div>
+<h1 class="page-header">Resources</h1>
+<div class="row">
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="dropcap dropcap-block">
+					<span class="fa fa-book" title="Online guidelines"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>Online guidelines</h2>
+				{{#each resources.guidelines}}
+					<a href="{{url}}" class="btn-block">
+						<span class="fa fa-angle-right"></span>
+						<span>{{title}}</span>
+					</a>
+				{{/each}}
+			</div>
+		</section>
+	</div>
+	<div class="col-md-4">
+		<section class="row">
+			<div class="col-sm-4">
+				<div class="dropcap dropcap-block">
+					<span class="fa fa-external-link-square" title="Librairies"></span>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h2>Librairies</h2>
+				{{#each resources.librairies}}
+					<a href="{{url}}" class="btn-block">
+						<span class="fa fa-angle-right"></span>
+						<span>{{title}}</span>
+					</a>
+				{{/each}}
+			</div>
+		</section>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+<ul class="nav nav-wizard nav-wizard-lg" data-provides="activable">
+	{{~#each samples.scientists}}
+	<li data-step-label="{{birthyear}}" {{#lt @index 1}}class="active"{{/lt}}>
+		<a role="button">
+			<h5>{{firstname}} {{lastname}}</h5>
+		</a>
+		<div class="nav-wizard-step-body">
+			<p>{{{resume}}}</p>
+		</div>
+	</li>
+	{{~/each}}
+	<li data-step-label="..." class="disabled"></li>
+</ul>

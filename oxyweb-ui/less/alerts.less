@@ -1,0 +1,135 @@
+@import 'variables';
+
+// Browser compatibility alerts
+// ------------------------------------------------
+html {
+
+	.alert-compatibility {
+		display: none;
+	}
+
+	&.lt-ie9 .alert-compatibility {
+		display: block;
+	}
+}
+
+//
+// Alerts
+// ------------------------------------------------
+.alert {
+	.border-radius(0);
+	border: none;
+	position: relative;
+	padding-left: 66px;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50px;
+		height: 100%;
+	}
+
+	h2, h3, h4 {
+		small {
+			color: @gray-dark;
+			font-weight: 600;
+		}
+	}
+
+	.alert-link {
+		color: @brand-default;
+		text-decoration: underline;
+	}
+}
+
+// Mixin for generating new alert styles:
+.alert-styles(@bg, @icon, @icon-bg) {
+	.icon(@icon);
+	background-color: @bg;
+
+	&:before {
+		background-color: @icon-bg;
+		color: white;
+		text-align: center;
+		vertical-align: middle;
+		line-height: 48px;
+		font-size: 26px;
+		padding: 0;
+	}
+}
+
+// Apply the mixin to the alerts:
+.alert            { .alert-styles(@gray-lighter, 'envelope', @brand-light); }
+.alert-info       { .alert-styles(@alert-info-bg, 'info', @alert-info-border); }
+.alert-success    { .alert-styles(@alert-success-bg, 'check', @alert-success-border); }
+.alert-warning    { .alert-styles(@alert-warning-bg, 'warning', @alert-warning-border); }
+.alert-danger     { .alert-styles(@alert-danger-bg, 'times', @alert-danger-border); }
+
+
+// Callouts
+// ------------------------------------------------
+// Not quite alerts, but custom and helpful way to present context-unrelated information.
+// Requires a base and modifier class.
+.callout {
+	padding: @callout-padding;
+	margin-bottom: @line-height-computed;
+	border-left: 3px solid @brand-light;
+	background-color: @gray-lighter;
+
+	h2, h3, h4 {
+		margin-top: 0;
+		margin-bottom: 5px;
+
+		&.lead {
+			border-bottom: 1px solid fade(@brand-light, 10%);
+			margin-bottom: 10px;
+		}
+
+		small {
+			color: @gray-dark;
+			font-weight: 600;
+		}
+	}
+
+	p {
+		&.lead {
+			font-size: 16px;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	code {
+		background-color: @white;
+		border-radius: 3px;
+	}
+
+	.callout-link {
+		color: @brand-default;
+		text-decoration: underline;
+		font-weight: @callout-link-font-weight;
+	}
+}
+
+// Mixin for generating new callout styles:
+.callout-styles(@text, @bg, @border) {
+	background-color: @bg;
+	border-color: @border;
+
+	h2, h3, h4 {
+		color: @text;
+
+		&.lead {
+			border-color: fade(@text, 10%);
+		}
+	}
+}
+
+// Callout variations:
+.callout-success    { .callout-styles(@callout-success-text, @callout-success-bg, @callout-success-border); }
+.callout-info       { .callout-styles(@callout-info-text, @callout-info-bg, @callout-info-border); }
+.callout-warning    { .callout-styles(@callout-warning-text, @callout-warning-bg, @callout-warning-border); }
+.callout-danger     { .callout-styles(@callout-danger-text, @callout-danger-bg, @callout-danger-border); }

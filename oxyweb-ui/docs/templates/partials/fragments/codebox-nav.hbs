@@ -1,0 +1,24 @@
+<ul id="codebox-{{join sections "-"}}" class="nav {{#if sectionHeader}}nav-tree{{else}}collapse{{/if}}" role="menu" data-provides="inner-navigation activable" data-parent="#{{id}}">
+	{{#if sectionHeader}}
+		<li class="nav-header" role="presentation">{{content.title}}</li>
+	{{/if}}
+	{{#if content.items}}
+		{{#each content.items}}
+			<li role="menuitem">
+				<a href="#codebox-{{join ../../sections "-"}}-{{@key}}"
+					{{#if this.items}}data-parent=".codebox-navigation" data-toggle="collapse"{{/if}}
+					data-codebox-loads="html{{#each this.modes}},{{this}}{{/each}}"{{#is this.type "page"}} data-codebox-view="page"{{/is}}
+					data-codebox-src="{{#is this.type "page___"}}samples{{else}}snippets{{/is}}/{{join ../../sections "/"}}/{{#if this.items}}{{@key}}/{{@key}}-preview{{else}}{{last ../../sections}}-{{@key}}{{/if}}">
+					{{title}}
+				</a>
+				{{#if this.items}}
+					{{#arrayConcat ../../sections @key}}
+						{{#context content=../this sections=this id=../../../id}}
+							{{> codebox-nav}}
+						{{/context}}
+					{{/arrayConcat}}
+				{{/if}}
+			</li>
+		{{/each}}
+	{{/if}}
+</ul>
