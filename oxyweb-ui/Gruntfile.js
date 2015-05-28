@@ -1,589 +1,671 @@
-var util = require('util');
-
-/*global $:false */
 module.exports = function (grunt) {
-
-	/*jslint node: true */
 	'use strict';
 
-	// Project configuration
+	// Required project configuration:
+	var project = grunt.file.readJSON('project.json');
+
+	// Optional build configuration:
+	var paths = {
+		src :       'src/',
+		app:        'src/app/',
+		states:     'src/app/states/',
+		less:       'src/less/',
+		pages:      'src/pages/',
+		data:       'src/templates/data/',
+		partials:   'src/templates/partials/',
+		helpers:    'src/templates/helpers/',
+		vendor:     'vendor/',
+		staging:    '.tmp'
+	};
+
+	// Grunt init
 	grunt.initConfig({
 
-		// Metadata
+		// Metadata -----------------------------------------------------------------
+
+		// Package configuration
 		pkg: grunt.file.readJSON('package.json'),
-		banner: '/*!\n' +
-			' * <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n' +
-			'<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
-			' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.organization.name %> (<%= pkg.organization.url %>)\n' +
-			' */\n',
 
-		// Clean (https://github.com/gruntjs/grunt-contrib-clean)
-		clean: {
-			dist: ['dist', 'target']
-		},
+		// Make project paths available to grunt:
+		paths: paths,
 
-		// JSHint (https://github.com/gruntjs/grunt-contrib-jshint)
-		jshint: {
+		// Tasks --------------------------------------------------------------------
+
+		/*
+		 * grunt-config
+		 *
+		 * https://github.com/almeidap/grunt-config
+		 *
+		 * Environment configuration
+		 */
+		config: {
+
+			// Default & shared environment variables (may be overrided by other jobs through `options.variables`)
 			options: {
-				"curly": true,
-				"eqnull": true,
-				"eqeqeq": true,
-				"undef": true,
-				"expr": true,
-				globals: {
-					window: true,
-					console: true,
-					module: true,
-					document: true,
-					jQuery: true,
-					$: true,
-					ace: true,
-					Handlebars: true,
-					hljs: true,
-					ZeroClipboard: true
+				variables: {
+					env: project.common
 				}
 			},
-			js: [
-				'Gruntfile.js',
-				'js/**/*.js',
-				'templates/helpers/**/*.js'
-			],
-			docs: [
-				'docs/js/**/*.js'
-			]
+			dev: {
+				options: {
+					variables: {
+						env : project.dev
+					}
+				}
+			},
+			prod: {
+				options: {
+					variables: {
+						env: project.prod
+					}
+				}
+			}
 		},
 
-		// Copy (https://github.com/gruntjs/grunt-contrib-copy)
+		/*
+		 * grunt-contrib-clean
+		 *
+		 * https://github.com/gruntjs/grunt-contrib-clean
+		 *
+		 * Clean files and folders.
+		 */
+		clean: {
+			options: {
+				force: true
+			},
+			build: ['<%= env.build.target %>'],
+			staging: ['<%= paths.staging %>']
+		},
+
+		/*
+		 * grunt-contrib-jshint
+		 *
+		 * https://github.com/gruntjs/grunt-contrib-jshint
+		 *
+		 * Validate files with JSHint, a tool that helps to detect errors and potential problems in your JavaScript code.
+		 */
+		jshint: {
+			src: ['Gruntfile.js', '<%= paths.src %>**/*.js'],
+			options: {
+				jshintrc: '.jshintrc'
+			}
+		},
+
+		/*
+		 * grunt-jscs
+		 *
+		 * https://github.com/jscs-dev/grunt-jscs
+		 *
+		 * Grunt task for JSCS, a *code style* linter for programmatically enforcing your style guide.
+		 */
+		jscs: {
+			src: ['Gruntfile.js', '<%= paths.src %>**/*.js'],
+			options: {
+				config: '.jscsrc'
+			}
+		},
+
+		/*
+		 * grunt-contrib-copy
+		 *
+		 * https://github.com/gruntjs/grunt-contrib-copy
+		 *
+		 * Copy files and folders
+		 */
 		copy: {
-			images: {
-				files: [
-					{	// Common
-						expand: true,
-						cwd: 'images',
-						src: '**',
-						dest: 'dist/images/'
-					},
-					{	// Docs
-						expand: true,
-						cwd: 'docs/images',
-						src: '**',
-						dest: 'target/images/'
-					}
-				]
+			oblique: {
+				files: [{
+					expand: true,
+					cwd: 'vendor/oblique-ui/dist/',
+					src: '**/*',
+					dest: '<%= env.build.target %>vendor/oblique-ui/'
+				}]
 			},
-			fonts: {
-				files: [
-					{	// ObliqueUI
-						expand: true,
-						cwd: 'fonts',
-						src: '**',
-						dest: 'dist/fonts/'
-					},
-					{	// Bootstrap Glyphicons
-						expand: true,
-						cwd: 'vendor/bootstrap/dist/fonts',
-						src: '**',
-						dest: 'dist/fonts/'
-					},
-					{	// Font-Awesome
-						expand: true,
-						cwd: 'vendor/font-awesome/fonts',
-						src: '**',
-						dest: 'dist/fonts/'
-					}
-				]
+			app: {
+				files: [{
+					cwd: '<%= paths.app %>',
+					src: ['**/*.js', '**/*.json'],
+					dest: '<%= env.build.target %>app/',
+					expand: true
+				}]
 			},
-			vendor: {
-				files: [
-					{   // Ace:
-						expand: true,
-						cwd: 'vendor/ace/src-min-noconflict',
-						src: [
-							'ace.js',
-							'mode-css.js',
-							'mode-html.js',
-							'mode-javascript.js',
-							'theme-twilight.js',
-							'worker-css.js',
-							'worker-html.js',
-							'worker-javascript.js'
-						],
-						dest: 'target/vendor/ace/'
-					},
-					{   // highlight.js:
-						expand: true,
-						cwd: 'vendor/highlightjs/',
-						src: ['highlight.pack.js', 'styles/default.css', 'styles/github.css'],
-						dest: 'target/vendor/highlightjs/'
-					},
-					{  // handlebars.js:
-						expand: true,
-						cwd: 'vendor/handlebars/',
-						src: 'handlebars.min.js',
-						dest: 'target/vendor/handlebars/'
-					},
-					{  // Holder.js:
-						expand: true,
-						cwd: 'vendor/holderjs/',
-						src: 'holder.js',
-						dest: 'target/vendor/holderjs/'
-					},
-					{   // html5shiv:
-						expand: true,
-						cwd: 'vendor/html5shiv/dist/',
-						src: '**',
-						dest: 'target/vendor/html5shiv/'
-					},
-					{   // jQuery - Cookie:
-						expand: true,
-						cwd: 'vendor/jquery-cookie/',
-						src: 'jquery.cookie.js',
-						dest: 'target/vendor/jquery-cookie/'
-					},
-					{   // Respond:
-						expand: true,
-						cwd: 'vendor/respond/dest/',
-						src: '**',
-						dest: 'target/vendor/respond/'
-					},
-					{   // ZeroClipboard:
-						expand: true,
-						cwd: 'vendor/zeroclipboard/dist/',
-						src: ['ZeroClipboard.min.js', 'ZeroClipboard.min.map', 'ZeroClipboard.swf'],
-						dest: 'target/vendor/zeroclipboard/'
-					},
-					{  // Custom:
-						expand: true,
-						cwd: 'docs/vendor/',
-						src: '**',
-						dest: 'target/vendor/'
-					}
-				]
+			assets: {
+				files: [{
+					cwd: '<%= paths.src %>',
+					src: ['images/**/*', 'js/**/*', 'fonts/**/*'],
+					dest: '<%= env.build.target %>',
+					expand: true
+				}]
 			},
-			dist: {
-				files: [
-					{   // ObliqueUI Framework distribution:
-						expand: true,
-						cwd: 'dist/',
-						src: '**',
-						dest: 'target/vendor/oblique-ui/'
-					}
-				]
+			'vendor-js': {
+				files: [{
+					cwd: '<%= paths.vendor %>',
+					src: '<%= env.resources.vendor.js %>',
+					dest: '<%= env.build.target %><%= paths.vendor %>',
+					expand: true
+				}]
 			},
-			docs: {
+			'vendor-css': {
+				files: [{
+					cwd: '<%= paths.vendor %>',
+					src: '<%= env.resources.vendor.css %>',
+					dest: '<%= env.build.target %><%= paths.vendor %>',
+					expand: true
+				}]
+			}
+		},
+
+		/*
+		 * assemble
+		 *
+		 * https://github.com/assemble/assemble
+		 *
+		 * Static site generator
+		 */
+		assemble: {
+			options: {
+				flatten: false,
+
+				assets: '<%= env.build.target %>',
+				env: '<%= env %>',
+				paths: '<%= paths%>',
+
+				data: [
+					'package.json',
+					'<%= paths.data %>**/*.json'
+				],
+				layout: false, // Using `composable` layouts, see why here: https://github.com/assemble/assemble/issues/555
+				layoutdir: '<%= paths.vendor %>oblique-ui/templates/layouts/',
+				partials: [
+					'<%= paths.vendor %>oblique-ui/templates/**/*.hbs',
+					'<%= paths.partials %>**/*.hbs'
+				],
+				helpers: [
+					'handlebars-helper-prettify',
+					'<%= paths.vendor %>oblique-ui/templates/helpers/**/*.js',
+					'<%= paths.helpers %>**/*.js'
+				],
+
+				// Layout placeholders override:
+				'html-attrs': 'ng-controller="AppController as appController"',
+				'ui-layout': "{{appController.layout}}",
+
+				// App-specific configuration used by ObliqueUI layouts:
+				app: {
+					name: '<%= env.app.module %>',
+					title: '<%= env.app.title %>',
+					description: '<%= env.app.description %>',
+					lang: '<%= env.app.defaults.locale %>',
+					home: '<%= env.app.home %>',
+					pages: '',
+					vendor: {
+						path: '<%= paths.vendor %>',
+						obliqueui: {
+							name: 'oblique-ui',
+							title: 'ObliqueUI',
+							path: 'oblique-ui/'
+						}
+					},
+
+					// Theming:
+					theme: {
+						'has-transitions':      true,
+						'has-tooltips':         true,
+						'has-sticky-footer':    false
+					},
+					offsets: {
+						intermediary: 160,
+						final: 320
+					}
+				},
+
+				// Prettify (https://github.com/jonschlinkert/grunt-prettify, https://github.com/helpers/handlebars-helper-prettify)
+				prettify: {
+					condense:               true,
+					indent:                 1,
+					"indent_char":          "	",  // Required for Markdown
+					padcomments:            false,
+					"indent_handlebars":    true,   // Format and indent {{#foo}}...{{/foo}}
+					"indent_inner_html":    true    // Indent <head> and <body> sections
+				}
+			},
+			pages: {
 				files: [
 					{
 						expand: true,
-						cwd: 'docs/',
-						src: [
-							'js/**/*.js',
-							'snippets/**/*.html',
-							'snippets/**/*.css',
-							'snippets/**/*.js'
-						],
-						dest: 'target/',
-						flatten: false
+						cwd: '<%= paths.pages %>',
+						src: '**/*.hbs',
+						dest: '<%= env.build.target %>'
 					}
 				]
 			}
 		},
 
-		// LESS (https://github.com/gruntjs/grunt-contrib-less)
+		/*
+		 * grunt-contrib-less
+		 *
+		 * https://github.com/gruntjs/grunt-contrib-less
+		 *
+		 * Compile LESS files to CSS
+		 */
 		less: {
 			css: {
 				options: {
-					ieCompat: true
+					cleancss: false
 				},
-				files: [
-					{
-						src: 'less/main.less',
-						dest: 'dist/css/<%= pkg.name %>.css'
-					},
-					{
-						expand: true,
-						cwd: 'themes/',
-						src: '**/*-theme.less',
-						dest: 'dist/themes/',
-						ext: '.css'
-					},
-					{
-						src: 'docs/less/docs.less',
-						dest: 'target/css/docs.css'
-					}
-				]
-			},
-			minify: {
-				options: {
-					expand: true,
-					cleancss: true
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'dist/css/',
-						src: '**/*.css',
-						dest: 'dist/css/',
-						report: 'min',
-						ext: '.min.css'
-					},
-					{
-						expand: true,
-						cwd: 'dist/themes/',
-						src: '**/*.css',
-						dest: 'dist/themes/',
-						report: 'min',
-						ext: '.min.css'
-					}
-				]
+				files: [{
+					src: '<%= paths.less %>main.less',
+					dest: '<%= env.build.target %>css/main.css'
+				}]
 			}
 		},
 
-		// Banner (https://github.com/mattstyles/grunt-banner)
-		usebanner: {
-			css: {
-				options: {
-					position: 'top',
-					banner: '<%= banner %>'
-				},
-				files: {
-					src: [
-						'dist/css/*.css',
-						'dist/themes/**/*.css',
-						'target/css/*.css'
-					]
-				}
-			}
-		},
-
-		// Concat (https://github.com/gruntjs/grunt-contrib-concat)
-		concat: {
-			options: {
-				process: true,
-				banner: '<%= banner %>',
-				stripBanners: false
-			},
-			js: {
-				files: [
-					{
-						src: ['js/**/*.js'],
-						dest: 'dist/js/<%= pkg.name %>.js'
-					},
-					{
-						src: [
-							'vendor/jquery/dist/jquery.js',
-							'vendor/bootstrap/dist/js/bootstrap.js',
-							'js/**/*.js'
-						],
-						dest: 'dist/js/<%= pkg.name %>-all.js'
-					},
-					{
-						src: 'docs/js/**/*.js',
-						dest: 'target/js/<%= pkg.name %>-docs-all.js'
-					}
-				]
-			}
-		},
-
-		// Uglify (https://github.com/gruntjs/grunt-contrib-uglify)
-		uglify: {
-			options: {
-				banner: '<%= banner %>',
-				report: 'min'
-			},
-			dist: {
-				files: [
-					{
-						expand: true,
-						cwd: 'dist/js/',
-						src: ['**/*.js'],
-						dest: 'dist/js/',
-						ext: '.min.js'
-					}
-				]
-			}
-		},
-
-		// Assemble (https://github.com/assemble/assemble)
-		assemble: {
-			options: {
-				data: [
-					'package.json',
-					'docs/data/*.{json,yml}'
-				],
-				layout: 'default.hbs',
-				layoutdir: 'templates/layouts/',
-				partials: [
-					'templates/partials/*.hbs',
-					'docs/templates/partials/**/*.hbs',
-					'docs/snippets/**/*.hbs'
-				],
-				helpers: [
-					'handlebars-helper-include',
-					'handlebars-helper-lorem',
-					'handlebars-helper-partial',
-					'handlebars-helper-prettify',
-					'templates/helpers/*.js',
-					'docs/helpers/*.js'
-				],
-				prettify: {
-					condense: true,
-					indent: 1,
-					"indent_char": "	", // Required for Markdown
-					padcomments: true
-				},
-				assets: 'target/',
-				flatten: false,
-
-				// ObliqueUI specific:
-				obliqueui: {
-					name: "oblique-ui",
-					site: {
-						home: 'index.html',
-						pages: ''
-					},
-					vendor: "vendor/oblique-ui/",
-					offsets: {
-						intermediary: 80,
-						final: 160
-					}
-				}
-			},
-			samples: {
-				options: {
-					layout: false,
-					assets: './target/'
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'docs/samples/',
-						src: ['**/*.hbs'],
-						dest: 'target/samples/'
-					}
-				]
-			},
-			snippets: {
-				options: {
-					layout: false
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'docs/snippets/',
-						src: ['**/*.hbs'],
-						dest: 'target/snippets/'
-					}
-				]
-			},
-			'snippets-layouts': {
-				options: {
-					layout: false,
-					assets: './target/snippets/layouts/'
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'docs/samples/layouts/',
-						src: ['**/*.hbs'],
-						dest: 'target/snippets/layouts/'
-					}
-				]
-			},
-			'snippets-templates': {
-				options: {
-					layout: false,
-					assets: './target/snippets/templates/'
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'docs/samples/templates/',
-						src: ['**/*.hbs'],
-						dest: 'target/snippets/templates/'
-					}
-				]
-			},
-			docs: {
-				files: [
-					{
-						expand: true,
-						cwd: 'docs/pages',
-						src: '**/*.hbs',
-						dest: 'target/'
-					}
-				]
-			},
-			viewports: {
-				options: {
-					layout: 'base.hbs',
-					assets: 'target/',
-					relativePath: "../"
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'docs/pages/layouts/',
-						src: ['**/*.hbs'],
-						dest: 'target/viewports/layouts/'
-					}
-				]
-			}
-		},
-
-		// Text replace (https://github.com/yoniholmes/grunt-text-replace)
+		/*
+		 * grunt-text-replace
+		 *
+		 * https://github.com/yoniholmes/grunt-text-replace
+		 */
 		replace: {
-			version: {
-				src: ['README.md'],
+			config: {
+				src: '<%= env.build.target%>/app/**/*.js',
 				overwrite: true,
 				replacements: [
 					{
-						from: /v?[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?/g,
-						to: "v<%= pkg.version %>"
+						from: "__MODULE__",
+						to: '<%= env.app.module %>'
+					},
+					{
+						from: "'__CONFIG__'",
+						to: '<%= JSON.stringify(env.app) %>'
 					}
 				]
 			}
 		},
 
-		// Changelog (https://github.com/btford/grunt-conventional-changelog)
-		changelog: {
+		/*
+		 * html2js
+		 *
+		 * https://github.com/karlgoldstein/grunt-html2js
+		 *
+		 * Converts AngularJS templates to JavaScript
+		 */
+		html2js: {
 			options: {
-				versionText: function(version, subtitle) {
-					var PATTERN = '<a name="v%s"></a>\n## v%s%s';
-					return util.format(PATTERN, version, version, subtitle ? ' - ' + subtitle : '');
-				},
-				patchVersionText: function(version, subtitle) {
-					var PATTERN = '<a name="v%s"></a>\n### v%s%s';
-					return util.format(PATTERN, version, version, subtitle ? ' - ' + subtitle : '');
-				},
-				commitLink: function(hash) {
-					var LINK_COMMIT = '[%s](%s/commits/%s)';
-					var shortHash = hash.substring(0,8); // No need to show full hash in log
-					return util.format(LINK_COMMIT, shortHash, grunt.template.process('<%= pkg.repository.home %>'), hash);
-				}
-			}
-		},
-
-		// Compress (https://github.com/gruntjs/grunt-contrib-compress)
-		compress: {
-			dist: {
-				options: {
-					archive: function () {
-						return grunt.template.process('target/<%= name %>-v<%= version %>.zip', {data: grunt.config('pkg')});
-					}
-				},
-				expand: true,
-				cwd: 'dist/',
-				src: '**'
+				module: '<%= env.app.module %>.app-templates',
+				base: '<%= paths.states %>'
 			},
-			docs: {
-				options: {
-					archive: function () {
-						return grunt.template.process('target/<%= name %>-v<%= version %>-docs.zip', {data: grunt.config('pkg')});
-					}
-				},
-				expand: true,
-				cwd: 'target/',
-				src: '**'
+			views: {
+				src: '<%= paths.app %>**/*.tpl.html',
+				dest: '<%= env.build.target %>app/app-templates.js'
 			}
 		},
 
-		// Release (https://github.com/vojtajina/grunt-bump)
-		bump: {
+		/*
+		 * grunt-ng-annotate
+		 *
+		 * https://github.com/mzgol/grunt-ng-annotate
+		 *
+		 * Grunt plugin to add, remove and rebuild AngularJS dependency injection annotations. Based on ng-annotate.
+		 */
+		ngAnnotate: {
+			app: {
+				files: [
+					{
+						cwd: '<%= env.build.target %>',
+						src: ['app/**/*.js'],
+						dest: '<%= env.build.target %>',
+						expand: true
+					}
+				]
+			}
+		},
+
+		/*
+		 * grunt-usemin
+		 *
+		 * https://github.com/yeoman/grunt-usemin
+		 *
+		 * Replaces references from non-optimized scripts, stylesheets and other assets to their optimized version within a set of HTML files (or any templates/views).
+		 */
+		useminPrepare: {
 			options: {
-				files: ['package.json', 'bower.json'],
-				updateConfigs: ['pkg'],
-				commit: true,
-				commitMessage: 'Release v%VERSION%',
-				commitFiles: ['.'],
-				createTag: true,
-				tagName: 'v%VERSION%',
-				tagMessage: 'Version v%VERSION%',
-				push: true,
-				pushTo: 'origin',
-				gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
-			}
-		},
-
-		// Watch (https://github.com/gruntjs/grunt-contrib-watch)
-		watch: {
-			gruntfile: {
-				files: 'Gruntfile.js',
-				tasks: ['default']
-			},
-			css: {
-				files: [
-					'less/**/*.less',
-					'themes/**/*.less',
-					'docs/less/**/*.less'
-				],
-				tasks: ['less:css', 'usebanner']
-			},
-			js: {
-				files: [
-					'js/**/*.js',
-					'docs/js/*.js'
-				],
-				tasks: ['jshint', 'concat', 'copy:docs']
+				dest: '<%= env.build.target %>'
 			},
 			html: {
-				files: [
-					'*.json',
-					'templates/**/*',
-					'docs/data/*.{json,yml}',
-					'docs/**/*.hbs',
-					'docs/snippets/**/*.html'
-				],
-				tasks: ['copy:docs', 'assemble']
+				src: '<%= env.build.target %>index.html'
+			}
+		},
+
+		/*
+		 * grunt-filerev
+		 *
+		 * https://github.com/yeoman/grunt-filerev
+		 *
+		 * Static asset revisioning through file content hash.
+		 */
+		filerev: {
+			options: {
+				encoding: 'utf8',
+				algorithm: 'md5',
+				length: 8
 			},
-			docs: {
-				files: 'dist/**/*',
-				tasks: ['copy:dist']
+			min: {
+				src: '<%= env.build.target %>min/**/*'
+			}
+		},
+
+		/*
+		 * grunt-usemin
+		 *
+		 * https://github.com/yeoman/grunt-usemin
+		 *
+		 * Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views).
+		 */
+		usemin: {
+			html: '<%= env.build.target %>index.html',
+			options: {
+				assetsDirs: ['<%= env.build.target %>']
+			}
+		},
+
+		/*
+		 * grunt-karma
+		 *
+		 * https://github.com/karma-runner/grunt-karma
+		 *
+		 * Grunt plugin for Karma test runner
+		 */
+		karma: {
+			unit: {
+				configFile: 'karma.conf.js',
+				logLevel: 'info',
+				singleRun: true
+			}
+		},
+
+		/*
+		 * grunt-contrib-watch
+		 *
+		 * https://github.com/gruntjs/grunt-contrib-watch
+		 *
+		 * Run predefined tasks whenever watched file patterns are added, changed or deleted
+		 */
+		watch: {
+			project: {
+				files: [
+					'project.json',
+					'Gruntfile.js'
+				],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'build-<%= _currentEnv() %>'
+				]
+			},
+			app: {
+				files: ['<%= paths.app %>**/*.js', '<%= paths.app %>**/*.json'],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'jshint',
+					'jscs',
+					'copy:app',
+					'html2js',
+					'replace'
+				]
+			},
+			assets: {
+				options: {
+					cwd: '<%= paths.src %>'
+				},
+				files: ['images/**/*', 'js/**/*', 'fonts/**/*'],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'copy:assets'
+				]
+			},
+			'vendor-js': {
+				options: {
+					cwd: '<%= env.build.target %><%= paths.vendor %>'
+				},
+				files: '{<%= env.resources.vendor.js %>}',
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'copy:vendor-js'
+				]
+			},
+			'vendor-css': {
+				options: {
+					cwd: '<%= env.build.target %><%= paths.vendor %>'
+				},
+				files: '{<%= env.resources.vendor.css %>}',
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'copy:vendor-css'
+				]
+			},
+			less: {
+				files: ['<%= paths.less %>**/*.less'],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'less'
+				]
+			},
+			pages: {
+				files: [
+					'<%= paths.pages %>**/*.hbs',
+					'<%= paths.partials %>**/*.hbs',
+					'<%= paths.helpers %>**/*.js'
+				],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'assemble'
+				]
+			},
+			views: {
+				files: ['<%= paths.app %>**/*.tpl.html'],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'html2js'
+				]
+			},
+			prod: {
+				files: [
+					'<%= env.build.target %>app/**/*',
+					'<%= env.build.target %>js/**/*',
+					'<%= env.build.target %>css/**/*',
+					'<%= env.build.target %>vendor/**/*'
+				],
+				tasks: [
+					'config:<%= _currentEnv() %>',
+					'assemble',
+					'optimize'
+				]
 			},
 			options: {
 				livereload: true
 			}
+		},
+
+		/*
+		 * grunt-focus
+		 *
+		 * https://github.com/joeytrapp/grunt-focus
+		 *
+		 * Configure subsets of watch configs and focus your Grunt processes.
+		 */
+		focus: {
+			dev: {
+				exclude: ['prod']
+			},
+			prod: {}
+		},
+
+		/*
+		 * grunt-contrib-connect
+		 *
+		 * https://github.com/gruntjs/grunt-contrib-connect
+		 *
+		 * Start a connect web server.
+		 */
+		connect: {
+			local: {
+				options: {
+					port: 9000,
+					base: '<%= env.build.target %>',
+					hostname: 'localhost',
+					index: '<%= env.app.home %>'
+				}
+			}
+		},
+
+		/*
+		 * grunt-nodemon
+		 *
+		 * https://github.com/ChrisWren/grunt-nodemon
+		 *
+		 * Monitor for any changes in your node.js application and automatically restart the server - perfect for development
+		 * http://nodemon.io/
+		 */
+		nodemon: {
+			dummy: {
+				script: 'server/server.js',
+				options:{
+					nodeArgs: ['--debug'],
+					env: {
+						//PORT: '9001'
+					},
+					watch: ['server/']
+				}
+			}
+		},
+
+		/*
+		 * grunt-bump
+		 *
+		 * https://github.com/vojtajina/grunt-bump
+		 *
+		 * Bump package version, create tag, commit, push & more.
+		 */
+		bump: {
+			options: {
+				files: ["package.json", "bower.json"],
+				updateConfigs: ["pkg"],
+				commit: true,
+				commitMessage: "Release v%VERSION%",
+				commitFiles: ["."],
+				createTag: true,
+				tagName: "v%VERSION%",
+				tagMessage: "Version v%VERSION%",
+				push: true,
+				pushTo: "origin",
+				gitDescribeOptions: "--tags --always --abbrev=1 --dirty=-d"
+			}
+		},
+
+		/*
+		 * Retrieves the current environment name.
+		 */
+		_currentEnv: function () {
+			var args = grunt.task.current.args || [];
+			return args.length > 1 ? args[1] : "dev"; // Args extracted as <task>[:<target>[:<param>]*]
 		}
 	});
 
-	// These plugins provide necessary tasks.
+	// Build dependencies -------------------------------------------------------
+	require('load-grunt-tasks')(grunt, {scope: "devDependencies"});
 	grunt.loadNpmTasks('assemble');
-	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
-
 
 	// Project tasks
 	// ----------------------------------
 
-	// Default task:
-	grunt.registerTask('default', ['dist', 'docs']);
+	// Build:
+	grunt.registerTask('build-dev', [
+		'config:dev',
+		'clean',
+		'jshint',
+		'jscs',
+		'copy',
+		'assemble',
+		'less',
+		'replace',
+		'html2js'
+	]);
 
-	// Full distribution task:
-	grunt.registerTask('dist', ['clean', 'jshint', 'copy', 'dist-css', 'dist-js']);
+	grunt.registerTask('build-prod', [
+		'build-dev',
+		'ngAnnotate',
+		'optimize',
+		'clean:staging'
+		//'karma:unit',
+	]);
 
-	// CSS distribution task:
-	grunt.registerTask('dist-css', ['less', 'usebanner']);
+	grunt.registerTask('watch-dev', [
+		'config:dev',
+		'focus:dev:dev'
+	]);
 
-	// JS distribution task:
-	grunt.registerTask('dist-js', ['concat', 'uglify']);
+	grunt.registerTask('watch-prod', [
+		'config:prod',
+		'focus:prod:prod'
+	]);
 
-	// Docs tasks:
-	grunt.registerTask('docs', ['assemble', 'copy:dist']);
+	// Serve:
+	grunt.registerTask('serve-dev', [
+		'config:dev',
+		'connect:local',
+		'watch-dev'
+	]);
 
-	// Deployment tasks
+	grunt.registerTask('serve-prod', [
+		'config:prod',
+		'connect:local:keepalive',
+		'watch-prod'
+	]);
+
+	// Run (build & serve):
+	grunt.registerTask('run-dev', [
+		'config:dev',
+		'build-dev',
+		'serve-dev'
+		//'karma:unit'
+	]);
+
+	grunt.registerTask('run-prod', [
+		'config:prod',
+		'build-prod',
+		'serve-prod'
+		//'karma:unit'
+	]);
+
+	/**
+	 * Optimizes resources for deployment.
+	 */
+	grunt.registerTask("optimize", [
+		'useminPrepare',
+		'concat',
+		'cssmin',
+		'uglify',
+		'filerev',
+		'usemin'
+	]);
+
+	// Template-only tasks (remove if necessary)
 	// ----------------------------------
 
-	// Dev mode:
-	grunt.registerTask('dev', ['default', 'watch']);
-
 	// Release (see https://github.com/vojtajina/grunt-bump#usage-examples):
-	grunt.registerTask('release', function(target) {
+	grunt.registerTask("release", function (target) {
 		grunt.task.run([
-			'bump-only:' + (target || 'patch'),
-			'replace',
-			'changelog',
-			'default',
-			'compress',
-			'bump-commit'
+			"bump-only:" + (target || "patch"),
+			"bump-commit"
 		]);
 	});
 
+	// Main task aliases
+	// ----------------------------------
+
+	// Default:
+	grunt.registerTask('default', ['run-dev']);
+
+	// Test-only tasks
+	// ----------------------------------
+	grunt.registerTask('dummy-server', ['nodemon']);
 };
