@@ -1,0 +1,34 @@
+// out: null
+/*---------------------------------
+TEAM
+---------------------------------*/
+
+#team {
+    float: left;
+    width: 100%;
+    .teamMemberPic {
+        margin-bottom: 40px;
+    }
+    .memberPicNormal {
+        position: absolute;
+        opacity: 1;
+        transition: all 400ms;
+        &:hover {
+            opacity: 0;
+            transition: all 400ms;
+        }
+    }
+    .memberPicHover {}
+    .teamMemberMeta {
+        p {
+            margin-bottom: 20px;
+        }
+    }
+    .teamMember {}
+    .teamPosition {
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: @baseColor;
+    }
+    
+}

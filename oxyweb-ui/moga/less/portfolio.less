@@ -1,0 +1,44 @@
+// out: null
+/*---------------------------------
+PORTFOLIO
+---------------------------------*/
+
+@folio-heigh: 250px;
+#Container .mix {
+    display: none;
+}
+
+#portfolio {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    .section{
+        padding-bottom: 20px;
+    }
+    #Container {
+        .mix {
+            overflow: hidden;
+            z-index: 1;
+            img {
+                z-index: -999;
+                position: absolute;
+            }
+            .folio-hover {
+                z-index: 999;
+                background: @transparent-dark;
+                padding: 30% 0;
+                opacity: 0;
+                transition: all 300ms;
+                &:hover {
+                    opacity: 1;
+                    transition: all 300ms;
+                }
+                .btn {
+                    &.btn-default {
+                        padding: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

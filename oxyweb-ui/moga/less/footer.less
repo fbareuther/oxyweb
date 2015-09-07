@@ -1,0 +1,33 @@
+// out: null
+/*---------------------------------
+FOOTER
+---------------------------------*/
+
+footer {
+    float: left;
+    width: 100%;
+    h3 {
+        font-size: 1.3em;
+        margin-bottom: 25px;
+    }
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid @darker;
+        }
+    }
+    .section {
+        .col-md-3 {
+            a {
+                color: @semiDark;
+                &:hover {
+                    color: @baseColor;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

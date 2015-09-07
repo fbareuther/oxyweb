@@ -1,0 +1,90 @@
+#slider {
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  
+  .item{
+    background-size: cover;
+  }
+
+  .color-overlay{
+    width: 100%;
+    height: 100%;
+    background: fade(@baseColor, 80%);
+    z-index: 10;
+  }
+
+  .caption {
+    position: absolute;
+    top: 50%;
+    margin-top: -104px;
+    text-align: left;
+    text-transform: uppercase;
+    z-index: 15;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 0 100px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .carousel-indicators {
+    bottom: 70px;
+      li {
+      border-color: rgba(255, 255, 255, 0.9);
+      height: 8px;
+      width: 30px;
+      margin-right: 10px;
+    }
+  }
+
+  .carousel-indicators 
+  .carousel-indicators .active {
+    top: -1px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .carousel-indicators .active {
+    top: -1px;
+    position: relative;
+  }
+
+  h1 {
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+    position: relative;   
+  }
+
+  h1:before{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);  
+    bottom: 0;
+    content: "";
+    width: 20%;
+    height: 6px;
+    background: #fff;
+  }
+
+  .lead {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
+
+
+.hero-btn {
+  width: 100%;
+  float: left;
+  text-align: center;
+  position: relative;
+  top: -70px;
+  a{
+    color: #fff;
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+}

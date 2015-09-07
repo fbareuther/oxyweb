@@ -1,0 +1,49 @@
+// out: null
+/*---------------------------------
+PRODUCTS
+---------------------------------*/
+
+#products {
+    float: left;
+    width: 100%;
+    .container {
+        &.row {
+            margin: 0 -25px;
+        }
+    }
+    .item {
+        overflow: hidden;
+        .itemhover {
+            position: absolute;
+            padding: 32% 19%;
+            background: @transparent;
+            opacity: 0;
+            transition: all 300ms;
+            width: 100%;
+            height: 100%;
+            &:hover {
+                opacity: 1;
+                transition: all 300ms;
+            }
+            .btn {
+                &.btn-ghost {}
+            }
+        }
+        .product-thumb {
+            img {}
+        }
+    }
+    .item-meta {
+        a {
+            color: @dark;
+            text-decoration: none;
+            &:hover {
+                color: @baseColor;
+            }
+        }
+        .productRating {
+            margin-bottom: 30px;
+            color: @baseColor;
+        }
+    }
+}
