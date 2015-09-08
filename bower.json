@@ -1,13 +1,11 @@
 {
-  "name": "NIS-NGA",
-  "title": "NIS-NGA",
-  "description": "Reactive web template powered by ObliqueUI and AngularJS",
+  "name": "Oxyweb",
+  "title": "Oxyweb",
+  "description": "Oxyweb",
   "version": "0.0.3",
   "private": true,
   "authors": [
-    "Dario Poggiali <Dario.Poggiali@bit.admin.ch>",
-    "Pedro De Almeida <Pedro.DeAlmeida@bit.admin.ch>",
-    "Paulo Lopes <paulo.lopes@bit.admin.ch>"
+    "Paulo Lopes <lopespaulo18@gmail.com>"
   ],
   "ignore": [
     "**/.*",
@@ -18,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "oblique-ui": "https://stash.eap.bit.admin.ch/scm/oui/oblique-ui.git#1.2.0",
     "animate.css": "3.4.0",
     "angular": "1.4.3",
     "angular-animate": "1.4.3",

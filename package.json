@@ -1,17 +1,17 @@
 {
-  "name": "NIS-NGA",
-  "title": "NIS-NGA",
-  "description": "Reactive web template powered by ObliqueUI and AngularJS",
+  "name": "Oxyweb",
+  "title": "Oxyweb",
+  "description": "My First Web Application",
   "version": "0.0.3",
   "license": "All Rights Reserved",
   "private": true,
   "organization": {
-    "name": "Federal Office of Information Technology, Systems and Telecommunication FOITT",
-    "url": "http://www.bit.admin.ch/"
+    "name": "home",
+    "url": ""
   },
   "repository": {
     "type": "git",
-    "url": "http://stash.eap.bit.admin.ch/scm/oui/oblique-reactive.git"
+    "url": "https://github.com/punix81/oxyweb"
   },
   "devDependencies": {
     "assemble": "^0.4.42",
