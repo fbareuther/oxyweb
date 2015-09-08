@@ -1,0 +1,26 @@
+.nav-tabs {
+	margin-bottom: 4px;
+
+	& > li {
+		&.active a {
+			border-bottom: 1px solid #fff;
+			background: linear-gradient(to bottom, @brand-accent 0%, @brand-accent 10%, #fff 10%, #fff 100%);
+			background-repeat: no-repeat;
+		}
+	}
+}
+
+.tab-content {
+  padding-top: 10px;
+}
+
+li.tab-warning {
+    a, a:hover {
+        background-color: @brand-warning-bg !important;
+    }
+
+    &.active a {
+        border-bottom: 1px solid #fff !important;
+    }
+}
+

@@ -1,0 +1,20 @@
+﻿.meeting-navigation {
+
+	.page-title {
+		display: inline;
+	}
+
+	.btn {
+		color: @gray;
+
+		&:hover, &:active {
+			color: #2853a2; // FIXME
+		}
+
+		&[disabled] {
+			span {
+				color: lighten(@btn-link-disabled-color, 8%);
+			}
+		}
+	}
+}

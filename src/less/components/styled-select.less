@@ -1,0 +1,45 @@
+﻿
+.styled-select {
+    position: relative;
+    background-color: white;
+}
+
+.disabled .styled-select {
+    background-color: transparent;
+}
+
+.styled-select, yesnoselect {
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none; // should work from firefox 35
+        background: transparent;
+
+        // avoid that any text are below the arrow
+        padding-right: 24px;
+
+        // remove the select arrow for IE
+        &::-ms-expand {
+            display: none;
+        }
+
+        // we need a more precise selector for the yesnoselect directive
+        &.form-control {
+            padding-right: 24px;
+        }
+    }
+
+    &:not(.exebrc_readonly)::after {
+        content: "\f078";
+        position: absolute;
+        font: normal normal normal 12px/1 FontAwesome;
+        right: 9px;
+        top: 11px;
+        pointer-events: none;
+    }
+
+    select.input-sm {
+      line-height: 14px;
+    }
+
+
+}

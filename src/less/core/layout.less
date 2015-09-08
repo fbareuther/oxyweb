@@ -1,0 +1,53 @@
+.homepage{
+  padding: 15px;
+}
+
+.homepage-layout {
+	background-image: url("../../images/homepage.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	.app-wrapper {
+		background: none;
+	}
+}
+
+@media (min-width: @screen-sm) {
+	.align-panel-to-content-table {
+		padding-top: 69px;
+	}
+
+	.align-panel-to-content-panel {
+		padding-top: 61px;
+	}
+
+    .align-panel-to-content-title {
+        padding-top: 2px;
+    }
+}
+
+footer {
+ // height: 57px; // Oblique UI standard
+  &.application-footer {
+    z-index: @zindex-navbar + 1;
+  }
+}
+
+.column-fixed {
+  height: 100%;
+}
+
+.column-fixed-content {
+  height: calc(~"100% - @{column-footer-height}");
+  overflow-y: auto;
+}
+
+.column-fixed-footer {
+  height: @column-footer-height;
+}
+
+
+.application.application-fixed .application-content {
+  @content-offset: 94px + 87px;
+  height: calc(~"100% - @{content-offset}");
+}

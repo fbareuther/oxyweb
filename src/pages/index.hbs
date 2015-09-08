@@ -1,0 +1,7 @@
+
+{{#compose "default-layout" body-class="{{appController.page.layout}}" description="{{appController.page.description | translate}}" body-attrs="ng-cloak translate-cloak" panel-layout=true has-header-transitions=true application-fixed=true}}
+    {{#content "default"}}
+        <div notifications></div>
+        <div ui-view ></div>
+    {{/content}}
+{{/compose}}

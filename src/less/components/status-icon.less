@@ -1,0 +1,24 @@
+﻿.status-icon {
+    font-size: 1.6em;
+
+    &.status-concluded {
+        .status-icon-variant(@brand-success, 'check');
+    }
+
+    &.status-scheduled, &.status-defScheduled {
+        .status-icon-variant(@brand-default, 'clock-o');
+    }
+
+    &.status-planned {
+        .status-icon-variant(@gray-dark, 'check');
+    }
+
+    &.status-cancelled {
+        .status-icon-variant(@brand-legacy-primary, 'times');
+    }
+}
+
+.status-icon-variant(@color, @icon) {
+    color: @color;
+    .icon(@icon);
+}

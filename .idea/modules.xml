@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/oxyweb.iml" filepath="$PROJECT_DIR$/oxyweb.iml" />
-      <module fileurl="file://$PROJECT_DIR$/oxyweb-ui/oxyweb-ui.iml" filepath="$PROJECT_DIR$/oxyweb-ui/oxyweb-ui.iml" />
     </modules>
   </component>
 </project>

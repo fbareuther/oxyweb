@@ -1,0 +1,30 @@
+﻿.timepicker {
+
+    td.form-group + td {
+        padding: 5px;
+    }
+
+    &.timepicker-condensed{
+        display: inline-block;
+        vertical-align: middle;
+
+        tr.text-center {
+            display: none;
+        }
+
+        + .form-control-static {
+            display: inline-block;
+            vertical-align: bottom;
+        }
+    }
+}
+
+.timepicker-force-readOnly{
+  pointer-events: none;
+
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    border-color: #f4f4f4;
+    box-shadow: none;
+  }
+
+}

@@ -1,0 +1,63 @@
+﻿/*
+ * Remove arows from input numbers in order to have persistent
+ * presentation along different browsers.
+*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.table > tbody > tr > td {
+   vertical-align: middle;
+ }
+
+
+.table > tbody > tr.ng-invalid-date > td  {
+  vertical-align: top;
+}
+
+
+td.td-expand {
+    width: 100%;
+}
+
+td {
+    &.td-col-1 {
+        width: 8.3%;
+    }
+    &.td-col-2 {
+        width: 16.6%;
+    }
+    &.td-col-3 {
+        width: 25%;
+    }
+    &.td-col-4 {
+        width: 33.3%;
+    }
+    &.td-col-5 {
+        width: 41.6%;
+    }
+    &.td-col-6 {
+        width: 50%;
+    }
+    &.td-col-7 {
+        width: 58.3%;
+    }
+    &.td-col-8 {
+        width: 66.6%;
+    }
+    &.td-col-9 {
+        width: 75%;
+    }
+    &.td-col-10 {
+        width: 83.3%;
+    }
+    &.td-col-11 {
+        width: 91.6%;
+    }
+    &.td-col-12 {
+        width: 100%;
+    }
+}

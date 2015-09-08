@@ -1,0 +1,253 @@
+@vendor-path: '../../vendor/';
+@import '@{vendor-path}oblique-ui/less/variables';
+@import '@{vendor-path}oblique-ui/less/mixins';
+
+// UI Core:
+@import 'core/mixins';
+@import 'core/utilities';
+@import 'core/scaffolding';
+@import 'core/layout';
+@import 'core/animations';
+
+// UI Components:
+@import 'components/spinner';
+@import 'components/tab';
+@import 'components/form';
+@import 'components/panel';
+@import 'components/navigable';
+@import 'components/dropdown';
+@import 'components/datepicker';
+@import 'components/timepicker';
+@import 'components/state-link-block';
+@import 'components/list';
+@import 'components/list-group';
+@import 'components/status-icon';
+@import 'components/delayed-pagination';
+@import 'components/multiselect';
+@import 'components/html-editor.less';
+@import 'components/column-search.less';
+@import 'components/footer.less';
+@import 'components/ui-select.less';
+@import 'components/styled-select.less';
+@import 'components/assignments.less';
+
+// UI Business
+@import 'components/affair-differences';
+@import 'components/meeting-navigation';
+
+// Used by angular-bootstrap as described in https://angular-ui.github.io/bootstrap/
+.pagination, .carousel, .panel-title a { cursor: pointer; }
+
+// <patch>: fixes angular-bootstrap 0.12 issues with bootstrap 3.3.x modals
+// TODO: remove when https://github.com/angular-ui/bootstrap/pull/3117 has been merged and released
+.modal-backdrop {
+	bottom: 0;
+	position: fixed;
+}
+// </patch>
+
+// FIXME: remove with ObliqueUI 1.2.x
+.checkbox input[type="checkbox"] {
+	cursor: pointer;
+}
+
+@column-footer-height: 57px;
+
+div[ui-view] {
+  height: 100%
+}
+
+.column-footer {
+    position: relative;
+    z-index: @zindex-navbar;
+	height: @column-footer-height;
+	padding-top: @grid-gutter-width / 3;
+	padding-bottom: @grid-gutter-width / 3;
+	background-color: lighten(@brand-info-bg, 6%);
+	.box-shadow(0 -4px 4px -2px rgba(0,0,0,0.1));
+}
+
+.column-body {
+	padding-bottom: 15px;
+}
+
+.has-indent .indent-control {
+	float: left;
+}
+
+
+.notifications {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 380px;
+	z-index: 99999;
+    word-wrap: break-word;
+
+	.alert {
+		margin: 5px 5px 0 5px;
+		box-shadow: 0 0 6px gray;
+	}
+}
+
+.page-header {
+	margin: 10px 15px 10px 0;
+	border: none;
+
+	.page-title,
+	.navbar-controls > li > a {
+		margin: 0;
+		padding: 0;
+		line-height: 42px;
+		font-size: 28px;
+		vertical-align: middle;
+	}
+
+	.page-title {
+		&.clearfix {
+			display: block;
+			width: 100%;
+		}
+
+		.strate-heading {
+			display: inline;
+			padding: 10px;
+		}
+
+		.subtitle {
+			color: @gray;
+		}
+	}
+
+	.indent-v2-body .page-title {
+		font-weight: 300;
+	}
+
+	p {
+		margin-bottom: 2px;
+	}
+
+	.navbar-controls {
+		margin-right: 15px;
+
+		> li > .control-icon {
+			font-size: 22px;
+			line-height: 45px;
+		}
+	}
+
+	.btn {
+		&.pull-right, &.pull-left {
+			margin-top: 8px;
+		}
+	}
+}
+
+.form-actions .dropdown-toggle-up:after {
+	content: "\f106";
+}
+
+.form-control-activable, .form-control-activable:hover {
+	cursor: pointer !important;
+}
+
+.navbar-controls>li>.tooltip, .navbar-controls>li>a>.tooltip {
+	white-space: nowrap;
+}
+
+.navbar-controls .control-icon .badge {
+	position: absolute;
+	margin-left: -10px;
+	margin-top: -4px;
+	top: 14px;
+	right: 0;
+	padding: 4px 5px;
+}
+
+.navbar-controls > li > a {
+	position: relative;
+}
+
+.navbar-controls .control-icon .control-icon-info {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -2px;
+	font-size: 11px;
+	text-align: center;
+}
+.input-group-addon:first-child {
+  border-right: 0;
+  width: 37%;
+  text-align: left;
+}
+
+// TODO: refactor yesnoselect directive with {replace: true}
+yesnoselect {
+	display: block;
+    position: relative;
+}
+
+.button-cursor {
+    .cursor-hand()
+}
+
+
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+.error-code { font:Tahoma; color: red;  }
+
+button.btn-with-overflow {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding-right:8px;
+}
+
+.milestone-icon {
+    color: #8d8d8d;
+    padding-right: 5px;
+}
+
+a.clickable-icon {
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.6s;
+    transition-duration: 0.6s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    color: #8d8d8d;
+
+    &:hover, &:focus {
+        color: #171717;
+    }
+}
+
+
+.page-header .page-title .subtitle  {
+  color: black;
+  font-weight: 300;
+}
+
+.text-muted {
+  color: black;
+  font-weight: 300;
+}
+
+.table-multiline td {
+    word-break: break-word;
+
+    td.hide-overflow {
+      overflow: hidden;
+  }
+}
+
+textarea.noresize {
+    resize: none;
+}
+
+.is-home {
+  background-image: url('../images/cover-background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

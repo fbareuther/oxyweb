@@ -1,0 +1,34 @@
+.dropdown-actions {
+
+  span.row {
+    display: block;
+  }
+
+  label {
+    white-space: normal;
+    font-weight: normal;
+    padding: 5px 0;
+  }
+
+  .toggle:before {
+    padding-right: 0;
+  }
+
+  .row {
+      .dropdown-action {
+          visibility: hidden;
+      }
+
+      &:hover {
+          .dropdown-action {
+              visibility: visible;
+          }
+      }
+  }
+}
+
+.table {
+  .dropdown-menu {
+    min-width: initial;
+  }
+}

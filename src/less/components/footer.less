@@ -1,0 +1,50 @@
+﻿.has-tracking-footer {
+  text-align:left;
+  font-size:10px;
+  padding:0px;
+  margin-top:-7px;
+
+  .top{
+    padding-top: 2px;
+
+    .top-left {
+      text-align:right;
+      margin:0px;
+
+    }
+
+    .top-right {
+      margin:0px;
+    }
+  }
+
+  .bottom-left  {
+    text-align:right;
+    margin-top: -5px;
+  }
+
+  .bottom-right  {
+    margin-top: -5px! important;
+  }
+}
+
+
+.has-footer {
+  .column-body {
+    height: calc(~"100% - @{column-footer-height}");
+  }
+
+  .column-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .action-footer{
+    padding-right: 24px;
+  }
+}
+
+.has-no-footer{
+  height: 100%;
+}
